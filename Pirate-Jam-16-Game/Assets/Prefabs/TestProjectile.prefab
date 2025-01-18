@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 8588935991520774708}
   - component: {fileID: 8551316555620127341}
   - component: {fileID: 6686920627037650726}
+  - component: {fileID: 3674557344694234791}
   - component: {fileID: 905150209311573353}
-  - component: {fileID: 8704890145604887436}
   m_Layer: 0
-  m_Name: ProjectileTestPrefab
+  m_Name: TestProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -66,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 08e618cc2962d0142a7310c962958191, type: 2}
+  - {fileID: 2100000, guid: b7b87acea73e1064fbcdb39e62050cca, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -103,12 +103,24 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3674557344694234791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6968663553428025887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 995c82f9bfe98a444bb8ed05cfb77569, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!54 &905150209311573353
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -131,32 +143,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8704890145604887436
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6968663553428025887}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6586b6dc5cc08e42a1e569d33c36bff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  defaultLayer:
-    serializedVersion: 2
-    m_Bits: 1
-  type: 3
-  speed: 10
-  homingStrength: 0.2

@@ -216,7 +216,7 @@ public class EnemyMasterRanger : State
             //transform.LookAt(enemy.transform);
 
             // Check if within attack range
-            if (distanceToEnemy > 17.5f && !dodging && !dashing) //HANDLE STRAFING TOWARD THE PLAYER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            if (distanceToEnemy > attackRange+8f && !dodging && !dashing) //HANDLE STRAFING TOWARD THE PLAYER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             {
                 agent.speed = 3.5f;
                 agent.SetDestination(ourTrans.position);

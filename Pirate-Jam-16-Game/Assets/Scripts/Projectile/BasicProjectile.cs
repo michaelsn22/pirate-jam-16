@@ -10,7 +10,7 @@ public class BasicProjectile : MonoBehaviour
     void Start()
     {
         rb = this.GetComponent<Rigidbody>();
-        rb.AddForce(transform.forward * 35f, ForceMode.Impulse);
+        rb.AddForce(transform.forward * 50f, ForceMode.Impulse); // was originally 35f, was too slow.
         rb.AddForce(transform.up*6f, ForceMode.Impulse); 
 
         //start an invoke to hide the object after a duration.
@@ -24,7 +24,7 @@ public class BasicProjectile : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<HealthScript>() != null && other.tag == "Player")
+        if (other.GetComponent<HealthScript>() != null && other.gameObject.tag == "Player")
         {
             //Debug.Log("Projectile has hit a collider of name: "+other.gameObject.name);
             other.GetComponent<HealthScript>().TakeDamage(attackDamage);
