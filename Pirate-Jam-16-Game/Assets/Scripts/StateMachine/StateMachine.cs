@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class StateMachine : MonoBehaviour
 {
-    [SerializeField] private State currentState;
+    [SerializeField] public State currentState;
     private Dictionary<string, State> states = new Dictionary<string, State>();
 
     private void Awake()
@@ -39,10 +39,7 @@ public class StateMachine : MonoBehaviour
 
     private void Update()
     {
-        currentState?.Update();
-
-        // Example debugging
-        Debug.Log($"Current State: {currentState?.name}");
+        currentState?.UpdateState(Time.deltaTime);
     }
 
     private void OnChildTransition(string newStateName)

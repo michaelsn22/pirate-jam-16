@@ -21,7 +21,7 @@ public abstract class State : MonoBehaviour
     }
 
 
-    public virtual void Update()
+    public virtual void UpdateState(float deltaTime)
     {
         // Override this method in derived classes to implement frame-based logic
     }

@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 144199984}
   - component: {fileID: 144199987}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -160,23 +160,23 @@ MonoBehaviour:
     m_Smooth: 0
     m_SmoothTime: 5
     m_LockCursor: 1
-  m_Friction: 8
+  m_Friction: 7
   m_Gravity: 20
-  m_JumpForce: 20
+  m_JumpForce: 8
   m_AutoBunnyHop: 0
-  m_AirControl: 0.03
+  m_AirControl: 0.3
   m_GroundSettings:
     MaxSpeed: 7
     Acceleration: 14
     Deceleration: 10
   m_AirSettings:
-    MaxSpeed: 7
-    Acceleration: 10
-    Deceleration: 10
-  m_StrafeSettings:
-    MaxSpeed: 1
+    MaxSpeed: 2
     Acceleration: 20
     Deceleration: 20
+  m_StrafeSettings:
+    MaxSpeed: 1
+    Acceleration: 50
+    Deceleration: 50
   m_Character: {fileID: 0}
   m_PlayerVelocity: {x: 0, y: 0, z: 0}
   m_JumpQueued: 0
@@ -237,6 +237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_RefreshRate: 4
+  m_StateMachine: {fileID: 1259666585}
 --- !u!1 &189004808
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,7 +355,7 @@ Transform:
   m_GameObject: {fileID: 461754569}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

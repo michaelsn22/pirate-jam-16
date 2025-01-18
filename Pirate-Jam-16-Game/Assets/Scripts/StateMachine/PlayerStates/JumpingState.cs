@@ -22,7 +22,7 @@ public class JumpingPlayerState : PlayerMovementState
         //animator.speed = 1.0f; // Reset animation speed
     }
 
-    public override void Update()
+    public override void UpdateState(float deltaTime)
     {
 
         // Apply air movement and gravity
