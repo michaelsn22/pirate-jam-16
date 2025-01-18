@@ -19,7 +19,7 @@ public class StateMachine : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning($"State machine contains an incompatible child node: {child.name}");
+                //Debug.LogWarning($"State machine contains an incompatible child node: {child.name}");
             }
         }
     }
@@ -33,7 +33,7 @@ public class StateMachine : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("StateMachine has no initial state set!");
+            //Debug.LogWarning("StateMachine has no initial state set!");
         }
     }
 
@@ -42,7 +42,7 @@ public class StateMachine : MonoBehaviour
         currentState?.Update();
 
         // Example debugging
-        Debug.Log($"Current State: {currentState?.name}");
+        //Debug.Log($"Current State: {currentState?.name}");
     }
 
     private void OnChildTransition(string newStateName)
@@ -58,7 +58,7 @@ public class StateMachine : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"State does not exist: {newStateName}");
+            //Debug.LogWarning($"State does not exist: {newStateName}");
         }
     }
 }

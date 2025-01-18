@@ -29,6 +29,8 @@ public abstract class State : MonoBehaviour
 
     protected void SignalTransition(string newStateName)
     {
+        //Debug.Log($"Transitioning from {this.GetType().Name} to {newStateName} at time {Time.time}");
         OnTransition?.Invoke(newStateName);
+        //OnTransition?.Invoke(newStateName);
     }
 }
