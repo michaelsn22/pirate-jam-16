@@ -18,7 +18,7 @@ public class FallingPlayerState : PlayerMovementState
         //animator.speed = 1.0f;
     }
 
-    public override void Update()
+    public override void UpdateState(float deltaTime)
     {
 
         // Transition to IdlePlayerState if on the ground and velocity is low

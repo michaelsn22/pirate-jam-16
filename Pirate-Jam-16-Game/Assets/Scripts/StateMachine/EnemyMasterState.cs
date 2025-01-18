@@ -51,7 +51,7 @@ public class EnemyMasterState : State
         agent.stoppingDistance = 1f;  // Increase stopping distance
         agent.avoidancePriority = 20; //set so that we (this agent) cannot push the companion game objects with a higher priority.
     }
-    public override void Update()
+    public override void UpdateState(float deltaTime)
     {
         //Debug.Log("In Idle State");
         if (!CachedReferences)

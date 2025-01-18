@@ -17,7 +17,7 @@ public class IdlePlayerState : PlayerMovementState
         //}
     }
 
-    public override void Update()
+    public override void UpdateState(float deltaTime)
     {
 
         // Transition to WalkingPlayerState if there's movement input and the player is on the ground

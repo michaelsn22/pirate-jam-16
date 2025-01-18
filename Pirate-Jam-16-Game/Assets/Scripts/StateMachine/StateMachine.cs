@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class StateMachine : MonoBehaviour
 {
-    [SerializeField] private State currentState;
+    [SerializeField] public State currentState;
     private Dictionary<string, State> states = new Dictionary<string, State>();
 
     private void Awake()
@@ -19,7 +19,7 @@ public class StateMachine : MonoBehaviour
             }
             else
             {
-                //Debug.LogWarning($"State machine contains an incompatible child node: {child.name}");
+                Debug.LogWarning($"State machine contains an incompatible child node: {child.name}");
             }
         }
     }
@@ -33,16 +33,13 @@ public class StateMachine : MonoBehaviour
         }
         else
         {
-            //Debug.LogWarning("StateMachine has no initial state set!");
+            Debug.LogWarning("StateMachine has no initial state set!");
         }
     }
 
     private void Update()
     {
-        currentState?.Update();
-
-        // Example debugging
-        //Debug.Log($"Current State: {currentState?.name}");
+        currentState?.UpdateState(Time.deltaTime);
     }
 
     private void OnChildTransition(string newStateName)
@@ -58,7 +55,7 @@ public class StateMachine : MonoBehaviour
         }
         else
         {
-            //Debug.LogWarning($"State does not exist: {newStateName}");
+            Debug.LogWarning($"State does not exist: {newStateName}");
         }
     }
 }

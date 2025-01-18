@@ -25,7 +25,7 @@ public class WalkingPlayerState : PlayerMovementState
         //animator.speed = 1.0f;
     }
 
-    public override void Update()
+    public override void UpdateState(float deltaTime)
     {
 
         //SetAnimationSpeed(player.Speed);
