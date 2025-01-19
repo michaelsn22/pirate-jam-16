@@ -25,7 +25,7 @@ public class Q3PlayerDebug : MonoBehaviour
         // Calculate frames-per-second.
         m_FrameCount++;
         m_Time += Time.deltaTime;
-        if (m_Time > 1.0 / m_RefreshRate)
+        if (m_Time > 1.0 / m_RefreshRate && m_StateMachine != null)
         {
             m_FPS = Mathf.Round(m_FrameCount / m_Time);
             m_FrameCount = 0;
