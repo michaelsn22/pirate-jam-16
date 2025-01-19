@@ -158,5 +158,5 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   type: 3
-  speed: 10
+  speed: 5
   homingStrength: 0.2
