@@ -8,8 +8,8 @@ public class EnemyMasterState : State
 {
     //old vars
     public NavMeshAgent agent;
-    public Transform player;
-    public GameObject playerObj;
+    private Transform player;
+    private GameObject playerObj;
     public LayerMask whatIsPlayer;
     bool alreadyAttacked;
     public float sightRange, attackRange; //attack range = 5 as of last testing.
