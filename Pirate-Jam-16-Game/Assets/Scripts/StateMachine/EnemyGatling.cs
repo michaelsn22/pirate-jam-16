@@ -4,9 +4,8 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
-public class EnemyMasterState : State
+public class EnemyGatling : State
 {
-    //old vars
     public NavMeshAgent agent;
     private Transform player;
     private GameObject playerObj;
@@ -28,21 +27,16 @@ public class EnemyMasterState : State
     private Collider[] hitEnemiesBuffer = new Collider[10]; // Adjust size as needed
     public bool isAttacking = false; //bool for other units to see that we are attacking.
     //movment burst vars
+    public float burstDuration = 1f; // Duration of the burst in seconds
     private float strafeRotationSpeed = 4f;
     private bool dashing = false;
     public float timeBetweenAttacks = 5f;
     private bool strafeDecisionCompleted = false;
     //end of old vars
-    public LayerMask playerLayer;
     private bool CachedReferences = false;
-    //public float burstDistance = 0.5f; // Distance to move forward
-    //public float burstDuration = 0.1f; // Duration of the burst in seconds
-
-    public float chargeBurstDistance = 15f;
-    public float chargeBurstDuration = 4f;
-    private float damageCalcTime = 0f;
-    private float damageCalcInterval = 0.25f;
+    [SerializeField] private GameObject arrowPrefab;
     [SerializeField] private GameObject masterGameObject;
+    [SerializeField] private Transform barrelTransform;
 
     public override void Enter()
     {
@@ -69,7 +63,6 @@ public class EnemyMasterState : State
 
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
-
         /*
         if (!strafeDecisionCompleted && animator != null)
         {
@@ -115,7 +108,7 @@ public class EnemyMasterState : State
         {
             return;
         }
-        
+
         /*
         if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Walking"))
         {
@@ -166,14 +159,14 @@ public class EnemyMasterState : State
             Quaternion targetRotation = Quaternion.LookRotation(directionToEnemy);
 
             // Smoothly rotate the NPC towards the player
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * strafeRotationSpeed);
+            masterGameObject.transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * strafeRotationSpeed);
         }
     }
 
     private void AttackEnemy()
     {
+        //Debug.Log("attacking enemy");
         /*
-        //Debug.Log("choosing to attack an enemy");
         if (animator != null)
         {
             //Debug.Log("is this whats doing it?");
@@ -218,7 +211,7 @@ public class EnemyMasterState : State
             Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
             
             // Smoothly rotate the NPC towards the player
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * strafeRotationSpeed);
+            masterGameObject.transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * strafeRotationSpeed);
         }
 
         // Check if the enemy is alive before attacking
@@ -226,18 +219,17 @@ public class EnemyMasterState : State
         if (enemyComponent != null && enemyComponent.CheckIfThisTargetIsAlive())
         {
             float distanceToEnemy = Vector3.Distance(transform.position, ourTrans.position);
-            //transform.LookAt(enemy.transform);
+            //transform.LookAt(ourTrans.transform);
 
             // Check if within attack range
-            if (distanceToEnemy > attackRange+3f && !dodging && !dashing) //HANDLE STRAFING TOWARD THE PLAYER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            if (distanceToEnemy > attackRange+8f && !dodging && !dashing) //HANDLE STRAFING TOWARD THE PLAYER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             {
                 agent.speed = 3.5f;
                 agent.SetDestination(ourTrans.position);
         
                 //Debug.Log("making a choice to strafe");
                 //make this a choice to stfafe either directions
-                /*
-                animator.SetBool("shouldWalk", false);
+                //animator.SetBool("shouldWalk", false);
                 if (!strafeDecisionCompleted)
                 {
                     isWaiting = false;
@@ -253,7 +245,6 @@ public class EnemyMasterState : State
                     }
                     Invoke(nameof(ResetStrafeDecision), 2f);
                 }
-                */
             }
             else 
             {
@@ -278,25 +269,9 @@ public class EnemyMasterState : State
                 if (!alreadyAttacked)
                 {
                     alreadyAttacked = true;
-                    //animator.SetBool("Attack1", true);
-                    Invoke(nameof(DamageCalcDelayed), 0.5f);
-                    //decide if we want to do a combo or not.
-                    // Roll a random number to decide whether to combo or not
-                    int randomAttack = Random.Range(1, 8); // Random number between 1 and 3
-                    switch(randomAttack)
-                    {
-                        case 1:
-                            //Debug.Log("bursting forward");
-                            StartCoroutine(BurstForwardAttack());
-                            break;
-                        default:
-                            //Debug.Log("bursting forward");
-                            StartCoroutine(BurstForwardAttack());
-                            //Invoke(nameof(ResetAttackAnimation), 1f);
-                            //Invoke(nameof(ResetAttack), timeBetweenAttacks);
-                            //StartCoroutine("ComboContinuer");
-                            break;
-                    }
+
+                    masterGameObject.transform.LookAt(ourTrans.transform);
+                    StartCoroutine(FireBarrageOfBullets());
                 }
             }
         }
@@ -306,6 +281,41 @@ public class EnemyMasterState : State
             Debug.Log("ENEMY DIED");
             isWaiting = false;
         }
+    }
+
+    private IEnumerator FireBarrageOfBullets()
+    {
+        yield return new WaitForSeconds(0.1f);
+        
+        FireBullet();
+        yield return new WaitForSeconds(0.1f);
+        FireBullet();
+        yield return new WaitForSeconds(0.1f);
+        FireBullet();
+        yield return new WaitForSeconds(0.1f);
+        FireBullet();
+        yield return new WaitForSeconds(0.1f);
+        FireBullet();
+        yield return new WaitForSeconds(0.1f);
+        FireBullet();
+        yield return new WaitForSeconds(0.1f);
+        FireBullet();
+        yield return new WaitForSeconds(0.1f);
+        FireBullet();
+        yield return new WaitForSeconds(0.1f);
+        FireBullet();
+        yield return new WaitForSeconds(0.1f);
+        FireBullet();
+        yield return new WaitForSeconds(0.1f);
+        Invoke(nameof(ResetAttack), timeBetweenAttacks);
+    }
+
+    private void FireBullet()
+    {
+        //spawn prefab aimed at player.
+        GameObject tempArrowGameObject = Instantiate(arrowPrefab, barrelTransform.position, Quaternion.identity);
+        //tempArrowGameObject.transform.position += new Vector3(0,2.5f,0);
+        tempArrowGameObject.transform.LookAt(ourTrans);
     }
 
     private void DamageCalcDelayed()
@@ -340,7 +350,6 @@ public class EnemyMasterState : State
     }
     private void ResetAttack()
     {
-        //Debug.Log("resetting attack!");
         alreadyAttacked = false;
         //animator.SetBool("Attack1", false);
         isWaiting = false;
@@ -406,90 +415,34 @@ public class EnemyMasterState : State
             }
         }
     }
-
-    private IEnumerator BurstForwardAttack()
-    {
-        yield return new WaitForSeconds(0.1f);
-
-        //Look at them, burst forward, look at them, burst forward.
-        if (ourTrans != null)
-        {
-            masterGameObject.transform.LookAt(new Vector3(ourTrans.transform.position.x, masterGameObject.transform.position.y, ourTrans.transform.position.z));
-        }
-        
-        StartCoroutine(BurstForward());
-
-        yield return new WaitForSeconds(2.5f);
-
-        //Debug.Log("doing next burst!");
-        if (ourTrans != null)
-        {
-            masterGameObject.transform.LookAt(new Vector3(ourTrans.transform.position.x, masterGameObject.transform.position.y, ourTrans.transform.position.z));
-        }
-        StartCoroutine(BurstForward());
-
-        yield return new WaitForSeconds(2.5f);
-
-        //Debug.Log("doing 3rd burst!");
-        if (ourTrans != null)
-        {
-            masterGameObject.transform.LookAt(new Vector3(ourTrans.transform.position.x, masterGameObject.transform.position.y, ourTrans.transform.position.z));
-        }
-        StartCoroutine(BurstForward());
-
-        yield return new WaitForSeconds(1f);
-
-        //Debug.Log("telling attack to reset in 5!");
-        Invoke(nameof(ResetAttackAnimation), 1f);
-        Invoke(nameof(ResetAttack), timeBetweenAttacks);
-    }
     private IEnumerator BurstForward()
     {
-        if (agent != null && agent.isActiveAndEnabled)
+        Transform playerTransform = playerObj.GetComponent<Transform>();
+        // Debug.Log("doing burst movement!");
+        if (agent != null)
         {
             agent.isStopped = true; // Stop the NavMeshAgent
             agent.velocity = Vector3.zero; // Reset the agent's velocity
         }
-
-        Vector3 initialPosition = masterGameObject.transform.position;
-        Vector3 targetPosition = new Vector3(initialPosition.x + masterGameObject.transform.forward.x * chargeBurstDistance * 2, initialPosition.y, initialPosition.z + masterGameObject.transform.forward.z * chargeBurstDistance * 2);
+        Vector3 initialPosition = transform.position;
+        
+        // Ignore the Y component of the player's position
+        Vector3 targetPosition = new Vector3(ourTrans.position.x, transform.position.y, ourTrans.position.z);
         float elapsedTime = 0f;
-
-        while (elapsedTime < chargeBurstDuration)
+        while (elapsedTime < burstDuration)
         {
-            //animator.SetBool("shouldRun", true);
-            // Activate particles
-
-            //Debug.Log("charging!!");
-
-            // Lerp only the X and Z positions
-            Vector3 newPosition = Vector3.Lerp(new Vector3(initialPosition.x, 0, initialPosition.z), new Vector3(targetPosition.x, 0, targetPosition.z), elapsedTime / 3f);
-            masterGameObject.transform.position = new Vector3(newPosition.x, initialPosition.y, newPosition.z);
-
+            transform.position = Vector3.Lerp(initialPosition, targetPosition, elapsedTime / burstDuration);
             elapsedTime += Time.deltaTime;
-            damageCalcTime += Time.deltaTime;
-
-            if (damageCalcTime >= damageCalcInterval)
-            {
-                DamageCalcDelayed();
-                // Debug.Log("rolling damage");
-                damageCalcTime = 0f;
-            }
-
             yield return null;
         }
-
-        masterGameObject.transform.position = targetPosition;
-
+        transform.position = targetPosition;
+        // Optional: Reset the position after the burst
         yield return new WaitForSeconds(0.1f); // Wait for a short period
-
-        if (agent != null && agent.isActiveAndEnabled)
+        if (agent != null)
         {
             agent.isStopped = false; // Restart the NavMeshAgent
             agent.velocity = Vector3.zero; // Ensure the agent's velocity is reset
         }
-
-        
     }
     private void StopAnimations()
     {

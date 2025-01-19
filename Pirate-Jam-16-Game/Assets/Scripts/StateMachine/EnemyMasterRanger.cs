@@ -6,10 +6,9 @@ using UnityEngine.UI;
 
 public class EnemyMasterRanger : State
 {
-    //old vars
     public NavMeshAgent agent;
-    public Transform player;
-    public GameObject playerObj;
+    private Transform player;
+    private GameObject playerObj;
     public LayerMask whatIsPlayer;
     bool alreadyAttacked;
     public float sightRange, attackRange; //attack range = 5 as of last testing.
@@ -36,6 +35,7 @@ public class EnemyMasterRanger : State
     //end of old vars
     private bool CachedReferences = false;
     [SerializeField] private GameObject arrowPrefab;
+    [SerializeField] private GameObject masterGameObject;
 
     public override void Enter()
     {
@@ -62,12 +62,13 @@ public class EnemyMasterRanger : State
 
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
-
+        /*
         if (!strafeDecisionCompleted && animator != null)
         {
             animator.SetBool("shouldStrafe", false);
             animator.SetBool("shouldStrafe2", false);
         }
+        */
 
         if (!playerInSightRange)
         {
@@ -94,7 +95,7 @@ public class EnemyMasterRanger : State
     {
         //Debug.Log("Idling");
         agent.velocity = Vector3.zero;
-        animator.Play("Idle");
+        //animator.Play("Idle");
     }
 
     private void ChaseEnemy()
@@ -107,6 +108,7 @@ public class EnemyMasterRanger : State
             return;
         }
 
+        /*
         if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Walking"))
         {
             animator.SetBool("shouldWalk", true);
@@ -115,6 +117,7 @@ public class EnemyMasterRanger : State
             animator.SetBool("shouldStrafeLeft", false);
             animator.SetBool("shouldStrafeRight", false);
         }
+        */
 
         
 
@@ -155,13 +158,14 @@ public class EnemyMasterRanger : State
             Quaternion targetRotation = Quaternion.LookRotation(directionToEnemy);
 
             // Smoothly rotate the NPC towards the player
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * strafeRotationSpeed);
+            masterGameObject.transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * strafeRotationSpeed);
         }
     }
 
     private void AttackEnemy()
     {
         //Debug.Log("attacking enemy");
+        /*
         if (animator != null)
         {
             //Debug.Log("is this whats doing it?");
@@ -170,6 +174,7 @@ public class EnemyMasterRanger : State
             animator.SetBool("rangedAttack", false);
             animator.SetBool("rangedAttack2", false);
         }
+        */
 
         //Debug.Log("attacking the player!");
         // Get position of a potential player or helper NPC.
@@ -205,7 +210,7 @@ public class EnemyMasterRanger : State
             Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
             
             // Smoothly rotate the NPC towards the player
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * strafeRotationSpeed);
+            masterGameObject.transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * strafeRotationSpeed);
         }
 
         // Check if the enemy is alive before attacking
@@ -213,7 +218,7 @@ public class EnemyMasterRanger : State
         if (enemyComponent != null && enemyComponent.CheckIfThisTargetIsAlive())
         {
             float distanceToEnemy = Vector3.Distance(transform.position, ourTrans.position);
-            //transform.LookAt(enemy.transform);
+            //transform.LookAt(ourTrans.transform);
 
             // Check if within attack range
             if (distanceToEnemy > attackRange+8f && !dodging && !dashing) //HANDLE STRAFING TOWARD THE PLAYER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -223,7 +228,7 @@ public class EnemyMasterRanger : State
         
                 //Debug.Log("making a choice to strafe");
                 //make this a choice to stfafe either directions
-                animator.SetBool("shouldWalk", false);
+                //animator.SetBool("shouldWalk", false);
                 if (!strafeDecisionCompleted)
                 {
                     isWaiting = false;
@@ -263,14 +268,12 @@ public class EnemyMasterRanger : State
                 if (!alreadyAttacked)
                 {
                     alreadyAttacked = true;
-                    animator.SetBool("Attack1", true);
+                    //animator.SetBool("Attack1", true);
                     //Invoke(nameof(DamageCalcDelayed), 0.5f);
+                    masterGameObject.transform.LookAt(ourTrans.transform);
+                    StartCoroutine(FireSeriesOfBullets());
                     
-                    //spawn prefab aimed at player.
-                    GameObject tempArrowGameObject = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
-                    tempArrowGameObject.transform.position += new Vector3(0,2.5f,0);
-                    tempArrowGameObject.transform.LookAt(ourTrans);
-
+                    /*
                     //decide if we want to do a combo or not.
                     // Roll a random number to decide whether to combo or not
                     int randomAttack = Random.Range(1, 8); // Random number between 1 and 3
@@ -287,6 +290,7 @@ public class EnemyMasterRanger : State
                             //StartCoroutine("ComboContinuer");
                             break;
                     }
+                    */
                 }
             }
         }
@@ -296,6 +300,31 @@ public class EnemyMasterRanger : State
             Debug.Log("ENEMY DIED");
             isWaiting = false;
         }
+    }
+
+    private IEnumerator FireSeriesOfBullets()
+    {
+        yield return new WaitForSeconds(0.1f);
+        FireBullet();
+
+        yield return new WaitForSeconds(0.3f);
+        FireBullet();
+
+        yield return new WaitForSeconds(0.3f);
+        FireBullet();
+
+        yield return new WaitForSeconds(0.3f);
+        FireBullet();
+
+        Invoke(nameof(ResetAttack), timeBetweenAttacks);
+    }
+
+    private void FireBullet()
+    {
+        //spawn prefab aimed at player.
+        GameObject tempArrowGameObject = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
+        tempArrowGameObject.transform.position += new Vector3(0,0.5f,0);
+        tempArrowGameObject.transform.LookAt(ourTrans);
     }
 
     private void DamageCalcDelayed()
@@ -331,7 +360,7 @@ public class EnemyMasterRanger : State
     private void ResetAttack()
     {
         alreadyAttacked = false;
-        animator.SetBool("Attack1", false);
+        //animator.SetBool("Attack1", false);
         isWaiting = false;
         specialAttacking = false;
         isAttacking = false;
@@ -369,7 +398,7 @@ public class EnemyMasterRanger : State
 
     private void ResetAttackAnimation()
     {
-        animator.SetBool("Attack1", false);
+        //animator.SetBool("Attack1", false);
     }
     
     private void GetLocationOfNearestEnemy()
@@ -430,12 +459,12 @@ public class EnemyMasterRanger : State
         isAttacking = false;
         CancelInvoke("DamageCalcDelayed");
         CancelInvoke("ResetAttack");
+        /*
         animator.SetBool("Attack1", false);
         animator.SetBool("shouldWalk", false);
         animator.SetBool("shouldRun", false);
         animator.SetBool("shouldStrafe", false);
         animator.SetBool("shouldStrafe2", false);
-        /*
         StopCoroutine("ComboContinuer");
         StopCoroutine("SpecialAttackHandler");
         StopCoroutine("JumpAttackHandler");
