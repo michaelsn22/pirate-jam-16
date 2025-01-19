@@ -43,7 +43,7 @@ public class WalkingPlayerState : PlayerMovementState
         }
 
         // Transition to Falling state
-        if (!player.m_Character.isGrounded && player.m_PlayerVelocity.y <= 0)
+        if ((!player.m_Character.isGrounded && player.m_PlayerVelocity.y <= 0) || player.m_PlayerVelocity.y > 0)
         {
             SignalTransition("FallingPlayerState");
         }

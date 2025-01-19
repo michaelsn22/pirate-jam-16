@@ -6,40 +6,12 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
-    [System.Serializable]
-    public class MovementSettings
-    {
-        public float MaxSpeed;
-        public float Acceleration;
-        public float Deceleration;
-
-        public MovementSettings(float maxSpeed, float accel, float decel)
-        {
-            MaxSpeed = maxSpeed;
-            Acceleration = accel;
-            Deceleration = decel;
-        }
-    }
 
     [Header("Aiming")]
     [SerializeField] private Transform m_Head;
     [SerializeField] private MouseLook m_MouseLook = new MouseLook();
+    [SerializeField] public PlayerSettings m_PlayerSettings;
 
-    [Header("Movement")]
-    [SerializeField] private float m_Friction = 6;
-    [SerializeField] private float m_Gravity = 20;
-    [SerializeField] public float m_JumpForce = 8;
-    [Tooltip("Automatically jump when holding jump button")]
-    [SerializeField] private bool m_AutoBunnyHop = false;
-    [Tooltip("How precise air control is")]
-    [SerializeField] private float m_AirControl = 0.3f;
-    [SerializeField] private MovementSettings m_GroundSettings = new MovementSettings(7, 14, 10);
-    [SerializeField] private MovementSettings m_AirSettings = new MovementSettings(7, 2, 2);
-    [SerializeField] private MovementSettings m_StrafeSettings = new MovementSettings(1, 50, 50);
-
-    /// <summary>
-    /// Returns player's current speed.
-    /// </summary>
     public float Speed { get { return m_Character.velocity.magnitude; } }
 
     [HideInInspector] public CharacterController m_Character;
@@ -84,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
     // Queues the next jump.
     private void QueueJump()
     {
-        if (m_AutoBunnyHop)
+        if (m_PlayerSettings.m_AutoBunnyHop)
         {
             m_JumpQueued = Input.GetButton("Jump");
             return;
@@ -123,7 +95,7 @@ public class PlayerMovement : MonoBehaviour
         wishdir = m_Tran.TransformDirection(wishdir);
 
         float wishspeed = wishdir.magnitude;
-        wishspeed *= m_AirSettings.MaxSpeed;
+        wishspeed *= m_PlayerSettings.m_AirSettings.MaxSpeed;
 
         wishdir.Normalize();
         m_MoveDirectionNorm = wishdir;
@@ -132,32 +104,32 @@ public class PlayerMovement : MonoBehaviour
         float wishspeed2 = wishspeed;
         if (Vector3.Dot(m_PlayerVelocity, wishdir) < 0)
         {
-            accel = m_AirSettings.Deceleration;
+            accel = m_PlayerSettings.m_AirSettings.Deceleration;
         }
         else
         {
-            accel = m_AirSettings.Acceleration;
+            accel = m_PlayerSettings.m_AirSettings.Acceleration;
         }
 
         // If the player is ONLY strafing left or right
         if (m_MoveInput.z == 0 && m_MoveInput.x != 0)
         {
-            if (wishspeed > m_StrafeSettings.MaxSpeed)
+            if (wishspeed > m_PlayerSettings.m_StrafeSettings.MaxSpeed)
             {
-                wishspeed = m_StrafeSettings.MaxSpeed;
+                wishspeed = m_PlayerSettings.m_StrafeSettings.MaxSpeed;
             }
 
-            accel = m_StrafeSettings.Acceleration;
+            accel = m_PlayerSettings.m_StrafeSettings.Acceleration;
         }
 
         Accelerate(wishdir, wishspeed, accel);
-        if (m_AirControl > 0)
+        if (m_PlayerSettings.m_AirControl > 0)
         {
             AirControl(wishdir, wishspeed2);
         }
 
         // Apply gravity
-        m_PlayerVelocity.y -= m_Gravity * Time.deltaTime;
+        m_PlayerVelocity.y -= m_PlayerSettings.m_Gravity * Time.deltaTime;
     }
 
     // Air control occurs when the player is in the air, it allows players to move side 
@@ -178,7 +150,7 @@ public class PlayerMovement : MonoBehaviour
 
         float dot = Vector3.Dot(m_PlayerVelocity, targetDir);
         float k = 32;
-        k *= m_AirControl * dot * dot * Time.deltaTime;
+        k *= m_PlayerSettings.m_AirControl * dot * dot * Time.deltaTime;
 
         // Change direction while slowing down.
         if (dot > 0)
@@ -205,9 +177,9 @@ public class PlayerMovement : MonoBehaviour
         m_MoveDirectionNorm = wishdir;
 
         var wishspeed = wishdir.magnitude;
-        wishspeed *= m_GroundSettings.MaxSpeed;
+        wishspeed *= m_PlayerSettings.m_GroundSettings.MaxSpeed;
 
-        Accelerate(wishdir, wishspeed, m_GroundSettings.Acceleration);
+        Accelerate(wishdir, wishspeed, m_PlayerSettings.m_GroundSettings.Acceleration);
     }
 
     public void ApplyFriction(float t)
@@ -221,8 +193,8 @@ public class PlayerMovement : MonoBehaviour
         // Only apply friction when grounded.
         if (m_Character.isGrounded)
         {
-            float control = speed < m_GroundSettings.Deceleration ? m_GroundSettings.Deceleration : speed;
-            drop = control * m_Friction * Time.deltaTime * t;
+            float control = speed < m_PlayerSettings.m_GroundSettings.Deceleration ? m_PlayerSettings.m_GroundSettings.Deceleration : speed;
+            drop = control * m_PlayerSettings.m_Friction * Time.deltaTime * t;
         }
 
         float newSpeed = speed - drop;

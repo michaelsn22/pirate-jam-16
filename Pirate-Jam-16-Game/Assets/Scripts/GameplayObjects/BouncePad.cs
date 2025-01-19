@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class BouncePad : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private float m_BounceForce = 20f;
+    private void OnTriggerEnter(Collider other)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (other.CompareTag("Player"))
+        {
+            PlayerMovement characterController = other.GetComponent<PlayerMovement>();
+            if (characterController != null)
+            {
+                characterController.m_PlayerVelocity.y = m_BounceForce;
+            }
+        }
     }
 }

@@ -7,13 +7,9 @@ public class JumpingPlayerState : PlayerMovementState
         base.Enter();
 
         // Apply jump force
-        player.m_PlayerVelocity.y = player.m_JumpForce;
+        player.m_PlayerVelocity.y = player.m_PlayerSettings.m_JumpForce;
 
-        //// Play jump sound
-        //player.PlayVoiceSound(player.JumpSound);
-
-        //// Play jump start animation
-        //animator.Play("JumpStart");
+        player.m_JumpQueued = false;
     }
 
     public override void Exit()

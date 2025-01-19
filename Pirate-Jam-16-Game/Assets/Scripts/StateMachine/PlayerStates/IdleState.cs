@@ -35,7 +35,7 @@ public class IdlePlayerState : PlayerMovementState
         }
 
         // Transition to FallingPlayerState if the player is in the air and velocity.y is below a threshold
-        if (!player.m_Character.isGrounded && player.m_PlayerVelocity.y < 0.3f)
+        if ((!player.m_Character.isGrounded && player.m_PlayerVelocity.y < 0.3f) || player.m_PlayerVelocity.y > 0)
         {
             SignalTransition("FallingPlayerState");
             return;
