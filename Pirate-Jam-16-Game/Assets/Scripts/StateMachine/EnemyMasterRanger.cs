@@ -36,6 +36,8 @@ public class EnemyMasterRanger : State
     private bool CachedReferences = false;
     [SerializeField] private GameObject arrowPrefab;
     [SerializeField] private GameObject masterGameObject;
+    [SerializeField] private ParticleSystem gunfireParticle;
+    private AudioSource ourAudioSource;
 
     public override void Enter()
     {
@@ -46,6 +48,7 @@ public class EnemyMasterRanger : State
     {
         player = GameObject.Find("Player").transform;
         playerObj = GameObject.Find("Player");
+        ourAudioSource = GetComponent<AudioSource>();
 
         agent.radius = 0.5f;  // Reduce the agent's radius
         agent.stoppingDistance = 1f;  // Increase stopping distance
@@ -325,6 +328,11 @@ public class EnemyMasterRanger : State
         GameObject tempArrowGameObject = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
         tempArrowGameObject.transform.position += new Vector3(0,0.5f,0);
         tempArrowGameObject.transform.LookAt(ourTrans);
+
+        //play a particle
+        gunfireParticle.Play();
+
+        ourAudioSource.Play();
     }
 
     private void DamageCalcDelayed()

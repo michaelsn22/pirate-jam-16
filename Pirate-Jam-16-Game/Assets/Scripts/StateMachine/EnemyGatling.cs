@@ -27,7 +27,7 @@ public class EnemyGatling : State
     private Collider[] hitEnemiesBuffer = new Collider[10]; // Adjust size as needed
     public bool isAttacking = false; //bool for other units to see that we are attacking.
     //movment burst vars
-    public float burstDuration = 1f; // Duration of the burst in seconds
+    //public float burstDuration = 1f; // Duration of the burst in seconds
     private float strafeRotationSpeed = 4f;
     private bool dashing = false;
     public float timeBetweenAttacks = 5f;
@@ -37,6 +37,8 @@ public class EnemyGatling : State
     [SerializeField] private GameObject arrowPrefab;
     [SerializeField] private GameObject masterGameObject;
     [SerializeField] private Transform barrelTransform;
+    [SerializeField] private ParticleSystem gunfireParticle;
+    private AudioSource ourAudioSource;
 
     public override void Enter()
     {
@@ -47,6 +49,7 @@ public class EnemyGatling : State
     {
         player = GameObject.Find("Player").transform;
         playerObj = GameObject.Find("Player");
+        ourAudioSource = GetComponent<AudioSource>();
 
         agent.radius = 0.5f;  // Reduce the agent's radius
         agent.stoppingDistance = 1f;  // Increase stopping distance
@@ -316,6 +319,9 @@ public class EnemyGatling : State
         GameObject tempArrowGameObject = Instantiate(arrowPrefab, barrelTransform.position, Quaternion.identity);
         //tempArrowGameObject.transform.position += new Vector3(0,2.5f,0);
         tempArrowGameObject.transform.LookAt(ourTrans);
+
+        gunfireParticle.Play();
+        ourAudioSource.Play();
     }
 
     private void DamageCalcDelayed()
@@ -415,6 +421,7 @@ public class EnemyGatling : State
             }
         }
     }
+    /*
     private IEnumerator BurstForward()
     {
         Transform playerTransform = playerObj.GetComponent<Transform>();
@@ -444,6 +451,7 @@ public class EnemyGatling : State
             agent.velocity = Vector3.zero; // Ensure the agent's velocity is reset
         }
     }
+    */
     private void StopAnimations()
     {
         isWaiting = false;

@@ -40,6 +40,8 @@ public class EnemyMasterState : State
     private float damageCalcTime = 0f;
     private float damageCalcInterval = 0.25f;
     [SerializeField] private GameObject masterGameObject;
+    [SerializeField] private ParticleSystem dashParticle;
+    private AudioSource ourAudioSource;
 
     public override void Enter()
     {
@@ -50,6 +52,7 @@ public class EnemyMasterState : State
     {
         player = GameObject.Find("Player").transform;
         playerObj = GameObject.Find("Player");
+        ourAudioSource = GetComponent<AudioSource>();
 
         agent.radius = 0.5f;  // Reduce the agent's radius
         agent.stoppingDistance = 1f;  // Increase stopping distance
@@ -451,6 +454,11 @@ public class EnemyMasterState : State
         Vector3 initialPosition = masterGameObject.transform.position;
         Vector3 targetPosition = new Vector3(initialPosition.x + masterGameObject.transform.forward.x * chargeBurstDistance * 2, initialPosition.y, initialPosition.z + masterGameObject.transform.forward.z * chargeBurstDistance * 2);
         float elapsedTime = 0f;
+
+        //play a particle.
+        dashParticle.Play();
+
+        ourAudioSource.Play();
 
         while (elapsedTime < chargeBurstDuration)
         {
