@@ -179,7 +179,7 @@ MonoBehaviour:
   audioMixer: {fileID: 24100000, guid: bb1f57670fb500d43a76a1f1fab971ee, type: 2}
   musicSource: {fileID: 960368633188340547}
   sfxSource: {fileID: 4217554914462315361}
-  regularSong: {fileID: 0}
+  regularSong: {fileID: 8300000, guid: f807aa638d50b7d448416dfda226b8f4, type: 3}
   secondSong: {fileID: 0}
   MoveableAudioSource: {fileID: 218937094149882687}
 --- !u!1 &5643285642934307305
@@ -353,8 +353,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 7690600138157980006, guid: bb1f57670fb500d43a76a1f1fab971ee, type: 2}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: f807aa638d50b7d448416dfda226b8f4, type: 3}
+  m_Resource: {fileID: 8300000, guid: f807aa638d50b7d448416dfda226b8f4, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.3
   m_Pitch: 1
