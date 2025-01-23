@@ -1,0 +1,59 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SocialPlatforms;
+
+public enum FireMode
+{
+    Single,
+    Burst,
+    Automatic
+}
+
+public enum BulletType
+{
+    hitscan,
+    projectile
+}
+
+public enum AmmoType
+{
+    Light,
+    Heavy,
+    Special
+}
+
+
+[CreateAssetMenu(fileName = "WeaponData", menuName = "Weapon System/Weapon Data"  )]
+public class WeaponData : ScriptableObject
+{
+
+    [Header("Stats")]
+    public int DamageAmount;
+    public FireMode fireMode = FireMode.Single;
+    public BulletType bulletType = BulletType.hitscan;
+    public int burstCount = 1;
+    public float RateOfFire; 
+    public int ProjectilesPerMag;
+    public int AmmoCapacity;
+    public float reloadTime = 0.3f;
+    public float WeaponRange;
+    public AmmoType ammoType;
+
+    [Header("Projectile")]
+    public GameObject BulletPrefab;
+    [Header("MuzzleFlash")]
+    public GameObject FlashPrefab;
+
+    [Header("Effects")]
+    public AudioClip[] ShootAudio;
+    public AudioClip EmptyMagAudio;
+    public AudioClip ReloadAudio;
+
+    [Header("Recoil")]
+    public Vector2 kickMinMax = new Vector2(.05f, .2f);
+    public Vector2 recoilAngleMinMax = new Vector2(3, 5);
+    public float recoilMoveSettleTime = .1f;
+    public float recoilRotationSettleTime = .1f;
+
+}
