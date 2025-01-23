@@ -21,7 +21,7 @@ public class AudioManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
-            //SceneManager.sceneLoaded += OnSceneLoaded;
+            SceneManager.sceneLoaded += OnSceneLoaded;
             musicSource.Play(); //have to have this so that the main menu plays music
         }
         else
