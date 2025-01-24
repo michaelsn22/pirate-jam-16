@@ -9,8 +9,8 @@ public class WeaponMechanics : MonoBehaviour
 {
     [SerializeField] private WeaponData m_WeaponData;
     [SerializeField] private Transform[] WeaponMuzzles;
-    [SerializeField] private ScriptableStringEvent onAmmoChanged;
-    [SerializeField] private ScriptableIntEvent onAmmoGrabbed;
+    //[SerializeField] private ScriptableStringEvent onAmmoChanged;
+    //[SerializeField] private ScriptableIntEvent onAmmoGrabbed;
     [SerializeField] private Camera m_PlayerCam;
 
     private float timeBetweenShots;
@@ -39,8 +39,8 @@ public class WeaponMechanics : MonoBehaviour
         WeaponControls.ShootingReleased += OnTriggerReleased;
         WeaponControls.Reload += OnReload;
 
-        onAmmoChanged.Invoke(this, $"{projectilesRemainingInMag} | {m_WeaponData.AmmoCapacity}");
-        onAmmoGrabbed.OnInvoked += OnAmmoPickup;
+        //onAmmoChanged.Invoke(this, $"{projectilesRemainingInMag} | {m_WeaponData.AmmoCapacity}");
+        //onAmmoGrabbed.OnInvoked += OnAmmoPickup;
         
     }
 
@@ -52,7 +52,7 @@ public class WeaponMechanics : MonoBehaviour
         WeaponControls.ShootingReleased -= OnTriggerReleased;
         WeaponControls.Reload -= OnReload;
 
-        onAmmoGrabbed.OnInvoked -= OnAmmoPickup;
+        //onAmmoGrabbed.OnInvoked -= OnAmmoPickup;
         
     }
 
@@ -100,11 +100,11 @@ public class WeaponMechanics : MonoBehaviour
 
 
             int j = Random.Range(0, m_WeaponData.ShootAudio.Length);
-            source.PlayOneShot(m_WeaponData.ShootAudio?[j]);
+            //source.PlayOneShot(m_WeaponData.ShootAudio?[j]);
 
             projectilesRemainingInMag--;
 
-            onAmmoChanged.Invoke(this, $"{projectilesRemainingInMag} | {currentAmmoTotal}");
+            //onAmmoChanged.Invoke(this, $"{projectilesRemainingInMag} | {currentAmmoTotal}");
         }
 
     }
@@ -228,7 +228,7 @@ public class WeaponMechanics : MonoBehaviour
 
         currentAmmoTotal -= (m_WeaponData.ProjectilesPerMag - projectilesRemainingInMag);
         projectilesRemainingInMag = m_WeaponData.ProjectilesPerMag;
-        onAmmoChanged.Invoke(this, $"{projectilesRemainingInMag} | {currentAmmoTotal}");
+        //onAmmoChanged.Invoke(this, $"{projectilesRemainingInMag} | {currentAmmoTotal}");
         
     }
 
