@@ -3,10 +3,6 @@
   "WorkspaceRootPath": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|f:\\unityprojects\\pirate-jam-16\\pirate-jam-16-game\\assets\\scripts\\scriptable object scripts\\weapondata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\scriptable object scripts\\weapondata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\assets\\scripts\\combat\\weaponsystem\\weaponmechanics.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\combat\\weaponsystem\\weaponmechanics.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -15,60 +11,16 @@
       "RelativeMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\combat\\weaponsystem\\weaponcontrols.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\assets\\scripts\\combat\\weaponsystem\\weaponsway.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\combat\\weaponsystem\\weaponsway.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\assets\\scripts\\combat\\weaponsystem\\weaponmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\combat\\weaponsystem\\weaponmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\assets\\scripts\\gameplayobjects\\speedboost.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gameplayobjects\\speedboost.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|f:\\unityprojects\\pirate-jam-16\\pirate-jam-16-game\\assets\\scripts\\scriptable object scripts\\weapondata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\scriptable object scripts\\weapondata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\assets\\scripts\\scriptable object scripts\\playersettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\scriptable object scripts\\playersettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\assets\\scripts\\gameplayobjects\\bouncepad.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gameplayobjects\\bouncepad.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\assets\\scripts\\statemachine\\playerstates\\jumpingstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\statemachine\\playerstates\\jumpingstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\assets\\scripts\\statemachine\\playerstates\\fallingstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\statemachine\\playerstates\\fallingstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\assets\\scripts\\debug.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\debug.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\assets\\scripts\\statemachine\\enemymasterstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\statemachine\\enemymasterstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\assets\\scripts\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\assets\\scripts\\statemachine\\playerstates\\idlestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\statemachine\\playerstates\\idlestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\assets\\scripts\\statemachine\\playerstates\\walkingstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\statemachine\\playerstates\\walkingstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\assets\\scripts\\statemachine\\state.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\statemachine\\state.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\assets\\scripts\\statemachine\\statemachine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\statemachine\\statemachine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\assets\\scripts\\combat\\weaponsystem\\weaponsway.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\combat\\weaponsystem\\weaponsway.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -78,212 +30,72 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "WeaponControls.cs",
               "DocumentMoniker": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\Combat\\WeaponSystem\\WeaponControls.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Combat\\WeaponSystem\\WeaponControls.cs",
               "ToolTip": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\Combat\\WeaponSystem\\WeaponControls.cs",
               "RelativeToolTip": "Assets\\Scripts\\Combat\\WeaponSystem\\WeaponControls.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAASAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAhAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-23T20:43:19.194Z"
+              "WhenOpened": "2025-01-23T20:43:19.194Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
+              "Title": "WeaponManager.cs",
+              "DocumentMoniker": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\Combat\\WeaponSystem\\WeaponManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Combat\\WeaponSystem\\WeaponManager.cs",
+              "ToolTip": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\Combat\\WeaponSystem\\WeaponManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Combat\\WeaponSystem\\WeaponManager.cs",
+              "ViewState": "AQIAAAUAAAAAAAAAAAAQwFQAAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-23T20:09:41.027Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "WeaponData.cs",
               "DocumentMoniker": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\Scriptable Object Scripts\\WeaponData.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Scriptable Object Scripts\\WeaponData.cs",
               "ToolTip": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\Scriptable Object Scripts\\WeaponData.cs",
               "RelativeToolTip": "Assets\\Scripts\\Scriptable Object Scripts\\WeaponData.cs",
-              "ViewState": "AQIAABUAAAAAAAAAAAAowCkAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACkAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-23T20:12:45.74Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "WeaponMechanics.cs",
               "DocumentMoniker": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\Combat\\WeaponSystem\\WeaponMechanics.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Combat\\WeaponSystem\\WeaponMechanics.cs",
               "ToolTip": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\Combat\\WeaponSystem\\WeaponMechanics.cs",
               "RelativeToolTip": "Assets\\Scripts\\Combat\\WeaponSystem\\WeaponMechanics.cs",
-              "ViewState": "AQIAADYAAAAAAAAAAAAowAYAAAAAAAAA",
+              "ViewState": "AQIAAAoAAAAAAAAAAAAkwC0AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-23T20:11:19.605Z"
+              "WhenOpened": "2025-01-23T20:11:19.605Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "WeaponSway.cs",
               "DocumentMoniker": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\Combat\\WeaponSystem\\WeaponSway.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Combat\\WeaponSystem\\WeaponSway.cs",
               "ToolTip": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\Combat\\WeaponSystem\\WeaponSway.cs",
               "RelativeToolTip": "Assets\\Scripts\\Combat\\WeaponSystem\\WeaponSway.cs",
-              "ViewState": "AQIAAAUAAAAAAAAAAAAxwEMAAACGAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAEMAAACGAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-23T20:10:55.746Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "WeaponManager.cs",
-              "DocumentMoniker": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\Combat\\WeaponSystem\\WeaponManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Combat\\WeaponSystem\\WeaponManager.cs",
-              "ToolTip": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\Combat\\WeaponSystem\\WeaponManager.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Combat\\WeaponSystem\\WeaponManager.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-23T20:09:41.027Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "SpeedBoost.cs",
-              "DocumentMoniker": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\GameplayObjects\\SpeedBoost.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\GameplayObjects\\SpeedBoost.cs",
-              "ToolTip": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\GameplayObjects\\SpeedBoost.cs",
-              "RelativeToolTip": "Assets\\Scripts\\GameplayObjects\\SpeedBoost.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAABfAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-19T20:39:16.413Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "PlayerSettings.cs",
-              "DocumentMoniker": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\Scriptable Object Scripts\\PlayerSettings.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Scriptable Object Scripts\\PlayerSettings.cs",
-              "ToolTip": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\Scriptable Object Scripts\\PlayerSettings.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Scriptable Object Scripts\\PlayerSettings.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB0AAAArAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-19T20:22:02.658Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "EnemyMasterState.cs",
-              "DocumentMoniker": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\StateMachine\\EnemyMasterState.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\StateMachine\\EnemyMasterState.cs",
-              "ToolTip": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\StateMachine\\EnemyMasterState.cs",
-              "RelativeToolTip": "Assets\\Scripts\\StateMachine\\EnemyMasterState.cs",
-              "ViewState": "AQIAAA4AAAAAAAAAAAAQwAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-19T03:58:53.162Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "BouncePad.cs",
-              "DocumentMoniker": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\GameplayObjects\\BouncePad.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\GameplayObjects\\BouncePad.cs",
-              "ToolTip": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\GameplayObjects\\BouncePad.cs",
-              "RelativeToolTip": "Assets\\Scripts\\GameplayObjects\\BouncePad.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-18T22:34:42.23Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Debug.cs",
-              "DocumentMoniker": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\Debug.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Debug.cs",
-              "ToolTip": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\Debug.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Debug.cs",
-              "ViewState": "AQIAAAsAAAAAAAAAAAAQwCwAAAAmAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-18T19:15:59.153Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "IdleState.cs",
-              "DocumentMoniker": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\StateMachine\\PlayerStates\\IdleState.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\StateMachine\\PlayerStates\\IdleState.cs",
-              "ToolTip": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\StateMachine\\PlayerStates\\IdleState.cs",
-              "RelativeToolTip": "Assets\\Scripts\\StateMachine\\PlayerStates\\IdleState.cs",
-              "ViewState": "AQIAAAcAAAAAAAAAAAAgwB4AAABBAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-18T19:07:06.314Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "JumpingState.cs",
-              "DocumentMoniker": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\StateMachine\\PlayerStates\\JumpingState.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\StateMachine\\PlayerStates\\JumpingState.cs",
-              "ToolTip": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\StateMachine\\PlayerStates\\JumpingState.cs",
-              "RelativeToolTip": "Assets\\Scripts\\StateMachine\\PlayerStates\\JumpingState.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAfAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-18T18:49:52.207Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "FallingState.cs",
-              "DocumentMoniker": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\StateMachine\\PlayerStates\\FallingState.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\StateMachine\\PlayerStates\\FallingState.cs",
-              "ToolTip": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\StateMachine\\PlayerStates\\FallingState.cs",
-              "RelativeToolTip": "Assets\\Scripts\\StateMachine\\PlayerStates\\FallingState.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAA0AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-18T18:49:44.279Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "WalkingState.cs",
-              "DocumentMoniker": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\StateMachine\\PlayerStates\\WalkingState.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\StateMachine\\PlayerStates\\WalkingState.cs",
-              "ToolTip": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\StateMachine\\PlayerStates\\WalkingState.cs",
-              "RelativeToolTip": "Assets\\Scripts\\StateMachine\\PlayerStates\\WalkingState.cs",
-              "ViewState": "AQIAAAsAAAAAAAAAAAAQwC0AAABwAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-17T21:26:30.723Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "State.cs",
-              "DocumentMoniker": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\StateMachine\\State.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\StateMachine\\State.cs",
-              "ToolTip": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\StateMachine\\State.cs",
-              "RelativeToolTip": "Assets\\Scripts\\StateMachine\\State.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAAFAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-17T20:29:19.091Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "StateMachine.cs",
-              "DocumentMoniker": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\StateMachine\\StateMachine.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\StateMachine\\StateMachine.cs",
-              "ToolTip": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\StateMachine\\StateMachine.cs",
-              "RelativeToolTip": "Assets\\Scripts\\StateMachine\\StateMachine.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAACsAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-17T19:21:18.471Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "PlayerMovement.cs",
-              "DocumentMoniker": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\PlayerMovement.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerMovement.cs",
-              "ToolTip": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\PlayerMovement.cs",
-              "RelativeToolTip": "Assets\\Scripts\\PlayerMovement.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB4AAAAoAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-17T18:51:57.713Z"
+              "WhenOpened": "2025-01-23T20:10:55.746Z",
+              "EditorCaption": ""
             }
           ]
         }
