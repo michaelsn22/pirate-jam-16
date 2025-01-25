@@ -55,7 +55,7 @@ public class HealthScript : MonoBehaviour
     }
 
 
-	void Die()
+	public void Die()
     {
         //animation
         //disable the enemy

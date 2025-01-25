@@ -39,6 +39,15 @@ public class AudioManager : MonoBehaviour
         audioMixer.SetFloat("SFX", Mathf.Log10(sfxVolume) * 20);
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            Debug.Log("doing transition");
+            StartCoroutine(TransitionToSong(secondSong));
+        }
+    }
+
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         string sceneName = scene.name;
@@ -114,9 +123,10 @@ public class AudioManager : MonoBehaviour
 
     private IEnumerator TransitionToSong(AudioClip newSong)
     {
-        //Debug.Log("swapping to song: "+newSong);
+        Debug.Log("swapping to song: "+newSong);
         float currentTime = 0f;
         float startVolume = musicSource.volume;
+        Debug.Log("start volume is: "+musicSource.volume);
 
         // Fade out the current song
         while (currentTime < transitionDuration)
