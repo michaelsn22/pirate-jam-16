@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 905150209311573353}
   - component: {fileID: 8704890145604887436}
   m_Layer: 0
-  m_Name: ProjectileTestPrefab
+  m_Name: HomingProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

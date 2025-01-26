@@ -4,18 +4,16 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
-public class EnemyMasterState : State
+public class EnemyMasterBoss : State
 {
     public NavMeshAgent agent;
     private Transform player;
     private GameObject playerObj;
     public LayerMask whatIsPlayer;
     bool alreadyAttacked;
-    public float sightRange, attackRange; //attack range = 5 as of last testing.
+    public float sightRange, rangedAttackRange, attackRange; //attack range = 5 as of last testing.
     private float hitboxRange = 5f;
     public bool playerInSightRange, playerInAttackRange, playerInRangedAttackRange;
-    public bool isTakingDamage = false; //changed this from 'stopvariable' to 'isTakingDamage' for clarity.
-    public Animator animator;
     private Transform ourTrans;
     private bool StopAllActions = false;
     private bool isWaiting = false;
@@ -27,8 +25,7 @@ public class EnemyMasterState : State
     private Collider[] hitEnemiesBuffer = new Collider[10]; // Adjust size as needed
     public bool isAttacking = false; //bool for other units to see that we are attacking.
     //movment burst vars
-    private float strafeRotationSpeed = 4f;
-    private bool dashing = false;
+    private float strafeRotationSpeed = 6f;
     public float timeBetweenAttacks = 5f;
     private bool strafeDecisionCompleted = false;
     private bool CachedReferences = false;
@@ -41,8 +38,14 @@ public class EnemyMasterState : State
     private float damageCalcInterval = 0.25f;
     [SerializeField] private GameObject masterGameObject;
     [SerializeField] private ParticleSystem dashParticle;
+    [SerializeField] private ParticleSystem gunfireParticle;
+    //[SerializeField] private ParticleSystem explosionParticle;
+    [SerializeField] private GameObject projectilePrefab1; //homing missle
+    [SerializeField] private GameObject projectilePrefab2; //default projectile.
+    [SerializeField] private AudioClip tireScreechNoise;
+    [SerializeField] private AudioClip gunfireNoise;
     private AudioSource ourAudioSource;
-
+    private bool dashAttacking = false; //flag for checking if we are mid dash attack/melee run at the player. this is so we dont try to ranged attack while dashing...
     public override void Enter()
     {
         base.Enter();
@@ -68,6 +71,7 @@ public class EnemyMasterState : State
         }
 
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+        playerInRangedAttackRange = Physics.CheckSphere(transform.position, rangedAttackRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
         /*
@@ -84,10 +88,17 @@ public class EnemyMasterState : State
             return;
         }
 
-        if (playerInSightRange && !playerInAttackRange)
+        if (playerInSightRange && !playerInRangedAttackRange && !playerInAttackRange)
         {
             //Debug.Log("player in range");
             ChaseEnemy();
+            return;
+        }
+
+        if (playerInSightRange && playerInRangedAttackRange && !playerInAttackRange && !dashAttacking)
+        {
+            //Debug.Log("player in ranged attack range");
+            RangedAttackEnemy();
             return;
         }
 
@@ -159,15 +170,168 @@ public class EnemyMasterState : State
             agent.SetDestination(ourTrans.position);
             //maintain correct orientation
             // Calculate the direction from the NPC to the player
-            Vector3 directionToEnemy = ourTrans.position - masterGameObject.transform.position;
+            Vector3 directionToEnemy = ourTrans.position - transform.position;
             directionToEnemy.y = 0f; // Optional: Ignore vertical difference
 
             // Calculate the desired rotation based on the direction to the player
             Quaternion targetRotation = Quaternion.LookRotation(directionToEnemy);
 
             // Smoothly rotate the NPC towards the player
-            masterGameObject.transform.rotation = Quaternion.Slerp(masterGameObject.transform.rotation, targetRotation, Time.deltaTime * strafeRotationSpeed);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * strafeRotationSpeed);
         }
+    }
+
+    private void RangedAttackEnemy()
+    {
+        agent.velocity = Vector3.zero;
+
+        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, sightRange, whatIsPlayer);
+
+        if (hitEnemies.Length > 0)
+        {
+            Transform closestTransform = null;
+            float closestDistance = Mathf.Infinity;
+
+            foreach (Collider col in hitEnemies)
+            {
+                float distanceToCollider = Vector3.Distance(transform.position, col.transform.position);
+                if (distanceToCollider < closestDistance)
+                {
+                    closestDistance = distanceToCollider;
+                    closestTransform = col.transform;
+                }
+            }
+
+            if (closestTransform != null)
+            {
+                ourTrans = closestTransform;
+            }
+        }
+
+        if (ourTrans != null && !dashAttacking)
+        {
+            //Debug.Log("moving to the transform");
+            if (agent.isActiveAndEnabled)
+            {
+                agent.SetDestination(ourTrans.position);
+            }
+            
+            //maintain correct orientation
+            // Calculate the direction from the NPC to the player
+            Vector3 directionToEnemy = ourTrans.position - transform.position;
+            directionToEnemy.y = 0f; // Optional: Ignore vertical difference
+
+            // Calculate the desired rotation based on the direction to the player
+            Quaternion targetRotation = Quaternion.LookRotation(directionToEnemy);
+
+            // Smoothly rotate the NPC towards the player
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * strafeRotationSpeed);
+        }
+
+        // Check if the enemy is alive before attacking
+        HealthScript enemyComponent = ourTrans.gameObject.GetComponent<HealthScript>();
+        if (enemyComponent != null && enemyComponent.CheckIfThisTargetIsAlive())
+        {
+            //transform.LookAt(ourTrans.transform);
+
+            // Check if within attack range
+            if (!alreadyAttacked)
+            {
+                alreadyAttacked = true;
+
+                int attackDecider = Random.Range(1, 10);
+                if (attackDecider >= 5)
+                {
+                    masterGameObject.transform.LookAt(ourTrans.transform);
+                    StartCoroutine(FireSeriesOfBullets());
+                }
+                else
+                {
+                    masterGameObject.transform.LookAt(ourTrans.transform);
+                    StartCoroutine(FireBarrageOfBullets());
+                }
+                
+            }
+        }
+        else
+        {
+            // Enemy is not alive
+            Debug.Log("ENEMY DIED");
+            isWaiting = false;
+        }
+    }
+
+    private IEnumerator FireSeriesOfBullets()
+    {
+        yield return new WaitForSeconds(0.1f);
+        FireBullet(0);
+
+        yield return new WaitForSeconds(0.3f);
+        FireBullet(0);
+
+        yield return new WaitForSeconds(0.3f);
+        FireBullet(0);
+
+        yield return new WaitForSeconds(0.3f);
+        FireBullet(0);
+
+        Invoke(nameof(ResetAttack), timeBetweenAttacks);
+    }
+
+    private void FireBullet(int bulletType)
+    {
+        switch(bulletType)
+        {
+            case 0:
+                GameObject tempProjectileGameObject = Instantiate(projectilePrefab1, transform.position + transform.forward * 1f + Vector3.up * 0.5f, Quaternion.identity);
+                tempProjectileGameObject.transform.position += new Vector3(0,0.5f,0);
+                tempProjectileGameObject.transform.LookAt(ourTrans);
+
+                //play a particle
+                gunfireParticle.Play();
+
+                ourAudioSource.clip = gunfireNoise;
+                ourAudioSource.Play();
+                break;
+            case 1:
+                GameObject tempProjectileGameObject2 = Instantiate(projectilePrefab2, transform.position + transform.forward * 0.2f + Vector3.up * 0.5f, Quaternion.identity);
+                tempProjectileGameObject2.transform.position += new Vector3(0,0.5f,0);
+                tempProjectileGameObject2.transform.LookAt(ourTrans);
+
+                //play a particle
+                gunfireParticle.Play();
+
+                ourAudioSource.clip = gunfireNoise;
+                ourAudioSource.Play();
+                break;
+        }
+    }
+
+    private IEnumerator FireBarrageOfBullets()
+    {
+        yield return new WaitForSeconds(0.1f);
+        
+        FireBullet(1);
+        yield return new WaitForSeconds(0.1f);
+        FireBullet(1);
+        yield return new WaitForSeconds(0.1f);
+        FireBullet(1);
+        yield return new WaitForSeconds(0.1f);
+        FireBullet(1);
+        yield return new WaitForSeconds(0.1f);
+        FireBullet(1);
+        yield return new WaitForSeconds(0.1f);
+        FireBullet(1);
+        yield return new WaitForSeconds(0.1f);
+        FireBullet(1);
+        yield return new WaitForSeconds(0.1f);
+        FireBullet(1);
+        yield return new WaitForSeconds(0.1f);
+        FireBullet(1);
+        yield return new WaitForSeconds(0.1f);
+        FireBullet(1);
+        yield return new WaitForSeconds(0.1f);
+        Invoke(nameof(ResetAttack), timeBetweenAttacks);
     }
 
     private void AttackEnemy()
@@ -218,7 +382,7 @@ public class EnemyMasterState : State
             Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
             
             // Smoothly rotate the NPC towards the player
-            masterGameObject.transform.rotation = Quaternion.Slerp(masterGameObject.transform.rotation, targetRotation, Time.deltaTime * strafeRotationSpeed);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * strafeRotationSpeed);
         }
 
         // Check if the enemy is alive before attacking
@@ -229,7 +393,7 @@ public class EnemyMasterState : State
             //transform.LookAt(enemy.transform);
 
             // Check if within attack range
-            if (distanceToEnemy > attackRange+3f && !dodging && !dashing) //HANDLE STRAFING TOWARD THE PLAYER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            if (distanceToEnemy > attackRange+3f && !dodging && !dashAttacking) //HANDLE STRAFING TOWARD THE PLAYER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             {
                 agent.speed = 3.5f;
                 agent.SetDestination(ourTrans.position);
@@ -258,7 +422,11 @@ public class EnemyMasterState : State
             else 
             {
                 // Stop moving towards the enemy and attack
-                agent.ResetPath();
+                if (agent.isActiveAndEnabled)
+                {
+                    agent.ResetPath();
+                }
+                
                 /*
                 animator.SetBool("shouldWalk", false);
                 animator.SetBool("shouldRun", false);
@@ -290,11 +458,7 @@ public class EnemyMasterState : State
                             StartCoroutine(BurstForwardAttack());
                             break;
                         default:
-                            //Debug.Log("bursting forward");
-                            StartCoroutine(BurstForwardAttack());
-                            //Invoke(nameof(ResetAttackAnimation), 1f);
-                            //Invoke(nameof(ResetAttack), timeBetweenAttacks);
-                            //StartCoroutine("ComboContinuer");
+                            StartCoroutine("JumpingAttack");
                             break;
                     }
                 }
@@ -306,6 +470,57 @@ public class EnemyMasterState : State
             Debug.Log("ENEMY DIED");
             isWaiting = false;
         }
+    }
+
+    private IEnumerator JumpingAttack()
+    {
+        //CancelInvoke("ResetAttack");
+        isWaiting = false;
+
+        //disable agent functionality
+        if (agent != null)
+        {
+            agent.isStopped = true; //Stop the NavMeshAgent
+            agent.velocity = Vector3.zero; //Reset the agent's velocity
+            agent.enabled = false;
+        }
+
+        if (ourTrans != null)
+        {
+            masterGameObject.transform.LookAt(new Vector3(ourTrans.transform.position.x, masterGameObject.transform.position.y, ourTrans.transform.position.z));
+        }
+
+
+        //do the logic to jump the agent vertically
+        dashParticle.Play();
+        StartCoroutine(JumpIntoTheAir());
+
+        ourAudioSource.clip = tireScreechNoise;
+        ourAudioSource.Play();
+
+
+        yield return new WaitForSeconds(1.6f);
+
+        //start to come down to the ground.
+        //Debug.Log("descending");
+
+        // Descend to the ground
+        yield return StartCoroutine(DescendToGround());
+
+        yield return new WaitForSeconds(0.6f);
+
+        //reenable agent functionality
+        if (agent != null)
+        {
+            agent.enabled = true;
+            agent.isStopped = false; // Restart the NavMeshAgent
+            agent.velocity = Vector3.zero; // Ensure the agent's velocity is reset
+        }
+
+
+        yield return new WaitForSeconds(0.5f);
+        isWaiting = true;
+        Invoke(nameof(ResetAttack), timeBetweenAttacks);
     }
 
     private void DamageCalcDelayed()
@@ -411,6 +626,8 @@ public class EnemyMasterState : State
     {
         yield return new WaitForSeconds(0.1f);
 
+        dashAttacking = true;
+
         //Look at them, burst forward, look at them, burst forward.
         if (ourTrans != null)
         {
@@ -439,6 +656,8 @@ public class EnemyMasterState : State
 
         yield return new WaitForSeconds(1f);
 
+        dashAttacking = false;
+
         //Debug.Log("telling attack to reset in 5!");
         Invoke(nameof(ResetAttackAnimation), 1f);
         Invoke(nameof(ResetAttack), timeBetweenAttacks);
@@ -458,6 +677,7 @@ public class EnemyMasterState : State
         //play a particle.
         dashParticle.Play();
 
+        ourAudioSource.clip = tireScreechNoise;
         ourAudioSource.Play();
 
         while (elapsedTime < chargeBurstDuration)
@@ -502,39 +722,6 @@ public class EnemyMasterState : State
         isAttacking = false;
         CancelInvoke("DamageCalcDelayed");
         CancelInvoke("ResetAttack");
-        /*
-        animator.SetBool("Attack1", false);
-        animator.SetBool("shouldWalk", false);
-        animator.SetBool("shouldRun", false);
-        animator.SetBool("shouldStrafe", false);
-        animator.SetBool("shouldStrafe2", false);
-        StopCoroutine("ComboContinuer");
-        StopCoroutine("SpecialAttackHandler");
-        StopCoroutine("JumpAttackHandler");
-        StopCoroutine("JumpAttackHandler");
-        //added this one in just incase... to stop ranged attacks.
-        //StopCoroutine("RangedAttack1");
-        animator.SetBool("JumpAttack", false);
-        animator.SetBool("Attack1", false);
-        animator.SetBool("Attack2", false);
-        animator.SetBool("Attack3", false);
-        animator.SetBool("Attack4", false);
-        animator.SetBool("Attack5", false);
-        animator.SetBool("Attack6", false);
-        animator.SetBool("special1", false);
-        animator.SetBool("special2", false);
-        animator.SetBool("special3", false);
-        animator.SetBool("special4", false);
-        animator.SetBool("rangedAttack", false);
-        animator.SetBool("rangedAttack2", false);
-        animator.SetBool("dashAttack", false);
-        animator.SetBool("shouldStrafeLeft", false); 
-        animator.SetBool("shouldStrafeRight", false);
-        animator.SetBool("shouldStrafe", false);
-        animator.SetBool("shouldStrafe2", false);
-        animator.SetBool("shouldWalk", false);
-        animator.SetBool("shouldRun", false);
-        */
     }
     public void PrepDeath()
     {
@@ -547,5 +734,106 @@ public class EnemyMasterState : State
     {
         base.Exit();
        //Debug.Log("Exiting Idle State");
+    }
+
+    public IEnumerator JumpIntoTheAir()
+    {
+        Vector3 startPosition = masterGameObject.transform.position;
+        float jumpDuration = 1.5f;
+        float jumpHeight = 6f;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < jumpDuration)
+        {
+            // Calculate the percentage of time elapsed
+            float t = elapsedTime / jumpDuration;
+
+            // Custom easing function for initial burst and slowdown near top
+            float easedT = CustomEaseOutBack(t);
+
+            // Calculate the current height
+            float height = jumpHeight * easedT;
+
+            // Calculate the current position
+            Vector3 currentPosition = startPosition + Vector3.up * height;
+
+            // Move the enemy to the current position
+            masterGameObject.transform.position = currentPosition;
+
+            // Update the elapsed time
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        //Ensure the enemy ends up exactly at the peak height
+        masterGameObject.transform.position = startPosition + Vector3.up * jumpHeight;
+    }
+
+    private float CustomEaseOutBack(float t)
+    {
+        const float c1 = 1.70158f;
+        const float c3 = c1 + 1;
+
+        return 1 + c3 * Mathf.Pow(t - 1, 3) + c1 * Mathf.Pow(t - 1, 2);
+    }
+
+    public IEnumerator DescendToGround()
+    {
+        Vector3 startPosition = masterGameObject.transform.position;
+        NavMeshHit hit;
+        Vector3 endPosition;
+
+        // Find the nearest point on the NavMesh
+        if (NavMesh.SamplePosition(startPosition, out hit, 100f, NavMesh.AllAreas))
+        {
+            //endPosition = hit.position;
+            endPosition = hit.position; // Move the end position up by 0.3 units
+        }
+        else
+        {
+            //Debug.Log("uh oh");
+            // If no NavMesh found, use the current x and z, but y = 0
+            endPosition = new Vector3(startPosition.x, 0, startPosition.z);
+        }
+
+        float descendDuration = 0.3f; // Adjust this value to control how long the descent takes
+        float elapsedTime = 0f;
+
+        while (elapsedTime < descendDuration)
+        {
+            // Calculate the percentage of time elapsed
+            float t = elapsedTime / descendDuration;
+
+            // Use a smooth easing function for the descent
+            float easedT = EaseInOutCubic(t);
+
+            // Calculate the current position
+            Vector3 currentPosition = Vector3.Lerp(startPosition, endPosition, easedT);
+
+            // Move the boss to the current position
+            masterGameObject.transform.position = currentPosition;
+
+            // Update the elapsed time
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Ensure the boss ends up exactly at the end position
+        masterGameObject.transform.position = endPosition;
+        //Debug.Log("reached the bottom");
+
+        //play an explosion particle?
+        //explosionParticle.Play();
+        SpawnAoeParticle();
+    }
+
+    public void SpawnAoeParticle()
+    {
+        GetComponent<ExpandingNova>().TriggerWaveAttack();
+    }
+
+    private float EaseInOutCubic(float t)
+    {
+        return t < 0.5 ? 4 * t * t * t : 1 - Mathf.Pow(-2 * t + 2, 3) / 2;
     }
 }
