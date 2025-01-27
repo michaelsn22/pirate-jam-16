@@ -9,8 +9,8 @@ public class WeaponMechanics : MonoBehaviour
 {
     [SerializeField] private WeaponData m_WeaponData;
     [SerializeField] private Transform[] WeaponMuzzles;
-    //[SerializeField] private ScriptableStringEvent onAmmoChanged;
-    //[SerializeField] private ScriptableIntEvent onAmmoGrabbed;
+    [SerializeField] private ScriptableStringEvent onAmmoChanged;
+    [SerializeField] private ScriptableIntEvent onAmmoGrabbed;
     [SerializeField] private Camera m_PlayerCam;
 
     private float timeBetweenShots;
@@ -39,9 +39,9 @@ public class WeaponMechanics : MonoBehaviour
         WeaponControls.ShootingReleased += OnTriggerReleased;
         WeaponControls.Reload += OnReload;
 
-        //onAmmoChanged.Invoke(this, $"{projectilesRemainingInMag} | {m_WeaponData.AmmoCapacity}");
-        //onAmmoGrabbed.OnInvoked += OnAmmoPickup;
-        
+        onAmmoChanged.Invoke(this, $"{projectilesRemainingInMag} | {m_WeaponData.AmmoCapacity}");
+        onAmmoGrabbed.OnInvoked += OnAmmoPickup;
+
     }
 
 
@@ -52,8 +52,8 @@ public class WeaponMechanics : MonoBehaviour
         WeaponControls.ShootingReleased -= OnTriggerReleased;
         WeaponControls.Reload -= OnReload;
 
-        //onAmmoGrabbed.OnInvoked -= OnAmmoPickup;
-        
+        onAmmoGrabbed.OnInvoked -= OnAmmoPickup;
+
     }
 
 
@@ -65,6 +65,8 @@ public class WeaponMechanics : MonoBehaviour
         projectilesRemainingInMag = m_WeaponData.ProjectilesPerMag;
         source = GetComponentInParent<AudioSource>();
         timeBetweenShots = 1.0f / m_WeaponData.RateOfFire;
+
+        onAmmoChanged.Invoke(this, $"{projectilesRemainingInMag} | {currentAmmoTotal}");
     }
 
     private bool CanShoot() => (!isReloading && Time.time >= nextShotTime && projectilesRemainingInMag > 0);
@@ -104,7 +106,7 @@ public class WeaponMechanics : MonoBehaviour
 
             projectilesRemainingInMag--;
 
-            //onAmmoChanged.Invoke(this, $"{projectilesRemainingInMag} | {currentAmmoTotal}");
+            onAmmoChanged.Invoke(this, $"{projectilesRemainingInMag} | {currentAmmoTotal}");
         }
 
     }
@@ -133,7 +135,7 @@ public class WeaponMechanics : MonoBehaviour
             GameObject flash = ObjectPools.Instance.GetPooledObject(m_WeaponData.FlashPrefab.name);
             flash.transform.SetParent(muzzle.transform); 
             flash.transform.position = muzzle.position;
-            flash.transform.forward = muzzle.forward;
+            flash.transform.forward = -muzzle.forward;
             if (flash?.GetComponent<ParticleSystem>() != null)
             {
                 StartCoroutine(StartFlash(flash));
@@ -146,9 +148,9 @@ public class WeaponMechanics : MonoBehaviour
                     hit.collider.gameObject?.GetComponent<Health>().ModifyHealth(HealthModifiers.damage, m_WeaponData.DamageAmount);
                 }
                 Debug.Log(hit.collider.gameObject.name);
-                GameObject impact =  ObjectPools.Instance.GetPooledObject("Stones hit");
-                impact.transform.position = hit.point;
-                StartCoroutine(StartFlash(impact));
+                //GameObject impact =  ObjectPools.Instance.GetPooledObject("Stones hit");
+                //impact.transform.position = hit.point;
+                //StartCoroutine(StartFlash(impact));
             }
         }
     }
@@ -161,7 +163,7 @@ public class WeaponMechanics : MonoBehaviour
             GameObject flash = ObjectPools.Instance.GetPooledObject(m_WeaponData.FlashPrefab.name);
             flash.transform.SetParent(muzzle.transform);
             flash.transform.position = muzzle.position;
-            flash.transform.forward = muzzle.forward;
+            flash.transform.forward = -muzzle.forward;
             if (flash?.GetComponent<ParticleSystem>() != null)
             {
                 StartCoroutine(StartFlash(flash));
@@ -174,7 +176,7 @@ public class WeaponMechanics : MonoBehaviour
 
                 bullet.SetActive(true);
 
-                bullet.transform.forward = muzzle.forward;
+                bullet.transform.forward = -muzzle.forward;
             }
         }
 
@@ -202,24 +204,24 @@ public class WeaponMechanics : MonoBehaviour
         isReloading = true;
         yield return new WaitForSeconds(.2f);
 
-        source.PlayOneShot(m_WeaponData.ReloadAudio, 1);
+        //source.PlayOneShot(m_WeaponData.ReloadAudio, 1);
 
         float reloadSpeed = 1 / m_WeaponData.reloadTime;
         float percent = 0;
 
-        // Store the initial rotation of the weapon
-        initialRotation = transform.rotation;
+        //// Store the initial rotation of the weapon
+        //initialRotation = transform.rotation;
 
-        while (percent < 1)
-        {
-            percent += Time.deltaTime * reloadSpeed;
+        //while (percent < 1)
+        //{
+        //    percent += Time.deltaTime * reloadSpeed;
 
-            // Perform a full 360-degree rotation
-            float rotationAngle = Mathf.Lerp(0, 360, percent);
-            transform.rotation = initialRotation * Quaternion.Euler(Vector3.right * rotationAngle);
+        //    // Perform a full 360-degree rotation
+        //    float rotationAngle = Mathf.Lerp(0, 360, percent);
+        //    transform.rotation = initialRotation * Quaternion.Euler(Vector3.right * rotationAngle);
 
-            yield return null;
-        }
+        //    yield return null;
+        //}
 
         isReloading = false;
 
@@ -228,8 +230,8 @@ public class WeaponMechanics : MonoBehaviour
 
         currentAmmoTotal -= (m_WeaponData.ProjectilesPerMag - projectilesRemainingInMag);
         projectilesRemainingInMag = m_WeaponData.ProjectilesPerMag;
-        //onAmmoChanged.Invoke(this, $"{projectilesRemainingInMag} | {currentAmmoTotal}");
-        
+        onAmmoChanged.Invoke(this, $"{projectilesRemainingInMag} | {currentAmmoTotal}");
+
     }
 
     private IEnumerator internalCooldown()

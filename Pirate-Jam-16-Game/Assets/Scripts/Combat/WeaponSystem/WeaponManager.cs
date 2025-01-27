@@ -82,12 +82,12 @@ public class WeaponManager : MonoBehaviour
 
         timeSinceLastSwitch = 0f;
 
-        //OnWeaponSelected();
+        OnWeaponSelected();
     }
-    //private void OnWeaponSelected() 
-    //{
-    //    onWeaponChanged?.Invoke(this, weapons[selectedWeapon].name);
-    //}
+    private void OnWeaponSelected()
+    {
+        onWeaponChanged?.Invoke(this, weapons[selectedWeapon].name);
+    }
 
-   
+
 }
