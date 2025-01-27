@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e574cd71208cd934ba88cd1f31dd2bb1, type: 3}
+  m_Name: NRG-Carbine
+  m_EditorClassIdentifier: 
+  WeaponName: Carbine
+  DamageAmount: 20
+  fireMode: 2
+  bulletType: 1
+  burstCount: 1
+  RateOfFire: 5
+  ProjectilesPerMag: 60
+  AmmoCapacity: 600
+  reloadTime: 0.3
+  WeaponRange: 100
+  BulletPrefab: {fileID: 1925846735241723392, guid: 2b8eae542bfad4445b9dd607c8cbc007, type: 3}
+  FlashPrefab: {fileID: 3633805218655292085, guid: 2211ec32e930410458e8dc89124d2a67, type: 3}
+  ShootAudio: []
+  EmptyMagAudio: {fileID: 0}
+  ReloadAudio: {fileID: 0}
+  kickMinMax: {x: 0.05, y: 0.2}
+  recoilAngleMinMax: {x: 3, y: 5}
+  recoilMoveSettleTime: 0.1
+  recoilRotationSettleTime: 0.1
