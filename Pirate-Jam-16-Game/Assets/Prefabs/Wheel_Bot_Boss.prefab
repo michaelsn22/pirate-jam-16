@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 2524245384215956147}
   - component: {fileID: 2934713724192528367}
   - component: {fileID: 5417908827809973656}
+  - component: {fileID: 1121888309273552944}
   m_Layer: 7
   m_Name: MasterState
   m_TagString: Untagged
@@ -101,8 +102,6 @@ MonoBehaviour:
   playerInSightRange: 0
   playerInAttackRange: 0
   playerInRangedAttackRange: 0
-  isTakingDamage: 0
-  animator: {fileID: 0}
   dodging: 0
   isAttacking: 0
   timeBetweenAttacks: 2
@@ -115,6 +114,10 @@ MonoBehaviour:
   projectilePrefab2: {fileID: 6968663553428025887, guid: f7798004ba64425429a973652d44c65c, type: 3}
   tireScreechNoise: {fileID: 8300000, guid: 59266f4f32e15f849bda33617cb2bcf6, type: 3}
   gunfireNoise: {fileID: 8300000, guid: 7ea27318c1ce94e43971b79fa8404d87, type: 3}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  raycastDistance: 2
 --- !u!82 &5417908827809973656
 AudioSource:
   m_ObjectHideFlags: 0
@@ -212,6 +215,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1121888309273552944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6223512402209761389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83fdfcfa0e7896f4cab2db66174a759b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxRadius: 34
+  expansionDuration: 2
+  damageRadius: 0.5
+  damageAmount: 30
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  waveMaterial: {fileID: 2100000, guid: b7b87acea73e1064fbcdb39e62050cca, type: 2}
 --- !u!1 &6505069184038673341
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,31 +290,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9ece5d1ed83173d4eb14ffed0320edbb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.4
+      value: 16.624235
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9ece5d1ed83173d4eb14ffed0320edbb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 15.515698
+      value: 0.30517006
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9ece5d1ed83173d4eb14ffed0320edbb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10.322403
+      value: -81.227
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9ece5d1ed83173d4eb14ffed0320edbb, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: -0.9993219
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9ece5d1ed83173d4eb14ffed0320edbb, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9ece5d1ed83173d4eb14ffed0320edbb, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 1
+      value: 0.03682115
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9ece5d1ed83173d4eb14ffed0320edbb, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9ece5d1ed83173d4eb14ffed0320edbb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -299,7 +322,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9ece5d1ed83173d4eb14ffed0320edbb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      value: 355.78
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9ece5d1ed83173d4eb14ffed0320edbb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z

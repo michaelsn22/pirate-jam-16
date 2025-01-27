@@ -5,6 +5,7 @@ using UnityEngine;
 public class HomingProjectile : MonoBehaviour
 {
     public LayerMask playerLayer;
+    public LayerMask groundLayer;
     public LayerMask enemyLayer;
     public LayerMask defaultLayer;
     public enum MissileType
@@ -75,6 +76,13 @@ public class HomingProjectile : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        if (((1 << collision.gameObject.layer) & groundLayer) != 0)
+        {
+            //Debug.Log("hit the ground. destroying self.");
+            StopCoroutine("SelfDestruct");
+            Destroy(gameObject);
+            return;
+        }
         //Debug.Log("hitting something");
         if (((1 << collision.gameObject.layer) & playerLayer) != 0)
         {
@@ -91,7 +99,7 @@ public class HomingProjectile : MonoBehaviour
                 case MissileType.Green:
                     break;
                 case MissileType.Yellow:
-                    Debug.Log("hit by yellow projectile!");
+                    //Debug.Log("hit by yellow projectile!");
                     player.TakeDamage(30);
                     break;
             }

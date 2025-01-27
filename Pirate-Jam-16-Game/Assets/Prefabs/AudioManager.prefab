@@ -181,6 +181,8 @@ MonoBehaviour:
   sfxSource: {fileID: 4217554914462315361}
   regularSong: {fileID: 8300000, guid: f807aa638d50b7d448416dfda226b8f4, type: 3}
   secondSong: {fileID: 8300000, guid: fe21d898ad17f8a4da3e611d5654b397, type: 3}
+  BossFightMusicIntro: {fileID: 8300000, guid: 6dd8027c0ea6b36488dcf69d722ef9a1, type: 3}
+  BossFightMusicLoop: {fileID: 8300000, guid: 19a8772d48acba64f9db6640342d4411, type: 3}
   MoveableAudioSource: {fileID: 218937094149882687}
 --- !u!1 &5643285642934307305
 GameObject:

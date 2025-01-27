@@ -46,6 +46,8 @@ public class EnemyMasterBoss : State
     [SerializeField] private AudioClip gunfireNoise;
     private AudioSource ourAudioSource;
     private bool dashAttacking = false; //flag for checking if we are mid dash attack/melee run at the player. this is so we dont try to ranged attack while dashing...
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float raycastDistance = 10f; //checking for collision with map elements so that we can return early.
     public override void Enter()
     {
         base.Enter();
@@ -450,15 +452,17 @@ public class EnemyMasterBoss : State
                     Invoke(nameof(DamageCalcDelayed), 0.5f);
                     //decide if we want to do a combo or not.
                     // Roll a random number to decide whether to combo or not
-                    int randomAttack = Random.Range(1, 8); // Random number between 1 and 3
+                    int randomAttack = Random.Range(1, 5); // Random number between 1 and 4
                     switch(randomAttack)
                     {
                         case 1:
-                            //Debug.Log("bursting forward");
-                            StartCoroutine(BurstForwardAttack());
+                            StartCoroutine("JumpingAttack"); //25% chance (50% for this move)
+                            break;
+                        case 2:
+                            StartCoroutine("JumpingAttack"); //25% chance (50% for this move)
                             break;
                         default:
-                            StartCoroutine("JumpingAttack");
+                            StartCoroutine(BurstForwardAttack()); //(50% for this move)
                             break;
                     }
                 }
@@ -682,8 +686,28 @@ public class EnemyMasterBoss : State
 
         while (elapsedTime < chargeBurstDuration)
         {
-            //animator.SetBool("shouldRun", true);
-            // Activate particles
+            
+            if (Physics.Raycast(masterGameObject.transform.position, masterGameObject.transform.forward, out RaycastHit hit, raycastDistance, groundLayer))
+            {
+                //Debug.Log($"About to hit ground at distance: {hit.distance}. Stopping immediately.");
+                StopAllCoroutines();
+                CancelInvoke("ResetAttack");
+                Invoke(nameof(ResetAttack), timeBetweenAttacks);
+
+                // Immediately stop movement
+                masterGameObject.transform.position = hit.point - masterGameObject.transform.forward * 0.1f; // Stop slightly before the hit point
+
+                // Re-enable agent
+                if (agent != null && agent.isActiveAndEnabled)
+                {
+                    agent.isStopped = false;
+                    agent.velocity = Vector3.zero;
+                }
+
+                dashAttacking = false;
+
+                yield break;
+            }
 
             //Debug.Log("charging!!");
 

@@ -151,6 +151,9 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
   enemyLayer:
     serializedVersion: 2
     m_Bits: 128

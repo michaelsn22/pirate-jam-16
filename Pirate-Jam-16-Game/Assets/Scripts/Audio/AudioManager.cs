@@ -11,6 +11,8 @@ public class AudioManager : MonoBehaviour
     public AudioSource musicSource, sfxSource;
     public AudioClip regularSong;
     public AudioClip secondSong;
+    public AudioClip BossFightMusicIntro;
+    public AudioClip BossFightMusicLoop;
     private float transitionDuration = 2.0f;
     [SerializeField] private AudioSource MoveableAudioSource;
 
@@ -52,7 +54,7 @@ public class AudioManager : MonoBehaviour
     {
         string sceneName = scene.name;
 
-        if (sceneName == "SampleScene")
+        if (sceneName == "SampleScene" || sceneName == "Lvl_1")
         {
             //Debug.Log("should be playing map 1 music");
             if (musicSource.clip != regularSong)
@@ -121,12 +123,22 @@ public class AudioManager : MonoBehaviour
         musicSource.Stop();
     }
 
+    public void StartBossFightMusic1()
+    {
+        StartCoroutine(TransitionToSong(BossFightMusicIntro));
+    }
+
+    public void StartBossFightMusic2()
+    {
+         StartCoroutine(TransitionToSong(BossFightMusicLoop));
+    }
+
     private IEnumerator TransitionToSong(AudioClip newSong)
     {
-        Debug.Log("swapping to song: "+newSong);
+        //Debug.Log("swapping to song: "+newSong);
         float currentTime = 0f;
         float startVolume = musicSource.volume;
-        Debug.Log("start volume is: "+musicSource.volume);
+        //Debug.Log("start volume is: "+musicSource.volume);
 
         // Fade out the current song
         while (currentTime < transitionDuration)
