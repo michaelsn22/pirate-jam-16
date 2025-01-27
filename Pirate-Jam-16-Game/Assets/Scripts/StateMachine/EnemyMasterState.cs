@@ -42,6 +42,8 @@ public class EnemyMasterState : State
     [SerializeField] private GameObject masterGameObject;
     [SerializeField] private ParticleSystem dashParticle;
     private AudioSource ourAudioSource;
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float raycastDistance = 10f; //checking for collision with map elements so that we can return early.
 
     public override void Enter()
     {
@@ -153,20 +155,20 @@ public class EnemyMasterState : State
             }
         }
 
-        if (ourTrans != null)
+        if (ourTrans != null && !dashing)
         {
             //Debug.Log("moving to the transform");
             agent.SetDestination(ourTrans.position);
             //maintain correct orientation
             // Calculate the direction from the NPC to the player
-            Vector3 directionToEnemy = ourTrans.position - transform.position;
+            Vector3 directionToEnemy = ourTrans.position - masterGameObject.transform.position;
             directionToEnemy.y = 0f; // Optional: Ignore vertical difference
 
             // Calculate the desired rotation based on the direction to the player
             Quaternion targetRotation = Quaternion.LookRotation(directionToEnemy);
 
             // Smoothly rotate the NPC towards the player
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * strafeRotationSpeed);
+            masterGameObject.transform.rotation = Quaternion.Slerp(masterGameObject.transform.rotation, targetRotation, Time.deltaTime * strafeRotationSpeed);
         }
     }
 
@@ -208,7 +210,7 @@ public class EnemyMasterState : State
             }
         }
 
-        if (agent != null && agent.isActiveAndEnabled && !StopAllActions)
+        if (agent != null && agent.isActiveAndEnabled && !StopAllActions && !dashing)
         {
             // Calculate the direction from the NPC to the player
             Vector3 directionToPlayer = ourTrans.position - transform.position;
@@ -218,7 +220,7 @@ public class EnemyMasterState : State
             Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
             
             // Smoothly rotate the NPC towards the player
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * strafeRotationSpeed);
+            masterGameObject.transform.rotation = Quaternion.Slerp(masterGameObject.transform.rotation, targetRotation, Time.deltaTime * strafeRotationSpeed);
         }
 
         // Check if the enemy is alive before attacking
@@ -447,28 +449,64 @@ public class EnemyMasterState : State
     {
         if (agent != null && agent.isActiveAndEnabled)
         {
-            agent.isStopped = true; // Stop the NavMeshAgent
-            agent.velocity = Vector3.zero; // Reset the agent's velocity
+            agent.isStopped = true;
+            agent.velocity = Vector3.zero;
         }
 
         Vector3 initialPosition = masterGameObject.transform.position;
-        Vector3 targetPosition = new Vector3(initialPosition.x + masterGameObject.transform.forward.x * chargeBurstDistance * 2, initialPosition.y, initialPosition.z + masterGameObject.transform.forward.z * chargeBurstDistance * 2);
+        Vector3 targetPosition = initialPosition + masterGameObject.transform.forward * chargeBurstDistance * 2;
         float elapsedTime = 0f;
 
-        //play a particle.
         dashParticle.Play();
-
         ourAudioSource.Play();
 
         while (elapsedTime < chargeBurstDuration)
         {
-            //animator.SetBool("shouldRun", true);
-            // Activate particles
+            dashing = true;
+            /*
+            if (!agent.isOnNavMesh)
+            {
+                Debug.Log("Agent is not on NavMesh. Stopping dash.");
+                StopAllCoroutines();
+                CancelInvoke("ResetAttack");
+                Invoke(nameof(ResetAttack), timeBetweenAttacks);
 
-            //Debug.Log("charging!!");
+                // Re-enable agent
+                if (agent != null && agent.isActiveAndEnabled)
+                {
+                    agent.isStopped = false;
+                    agent.velocity = Vector3.zero;
+                }
 
-            // Lerp only the X and Z positions
-            Vector3 newPosition = Vector3.Lerp(new Vector3(initialPosition.x, 0, initialPosition.z), new Vector3(targetPosition.x, 0, targetPosition.z), elapsedTime / 3f);
+                yield break;
+            }
+            */
+
+            // Check for ground collision
+            if (Physics.Raycast(masterGameObject.transform.position, masterGameObject.transform.forward, out RaycastHit hit, raycastDistance, groundLayer))
+            {
+                //Debug.Log($"About to hit ground at distance: {hit.distance}. Stopping immediately.");
+                StopAllCoroutines();
+                CancelInvoke("ResetAttack");
+                Invoke(nameof(ResetAttack), timeBetweenAttacks);
+
+                // Immediately stop movement
+                masterGameObject.transform.position = hit.point - masterGameObject.transform.forward * 0.1f; // Stop slightly before the hit point
+
+                // Re-enable agent
+                if (agent != null && agent.isActiveAndEnabled)
+                {
+                    agent.isStopped = false;
+                    agent.velocity = Vector3.zero;
+                }
+
+                dashing = false;
+
+                yield break;
+            }
+
+            // Movement logic
+            Vector3 newPosition = Vector3.Lerp(initialPosition, targetPosition, elapsedTime / chargeBurstDuration);
             masterGameObject.transform.position = new Vector3(newPosition.x, initialPosition.y, newPosition.z);
 
             elapsedTime += Time.deltaTime;
@@ -477,25 +515,24 @@ public class EnemyMasterState : State
             if (damageCalcTime >= damageCalcInterval)
             {
                 DamageCalcDelayed();
-                // Debug.Log("rolling damage");
                 damageCalcTime = 0f;
             }
 
             yield return null;
         }
+        dashing = false;
 
         masterGameObject.transform.position = targetPosition;
 
-        yield return new WaitForSeconds(0.1f); // Wait for a short period
+        yield return new WaitForSeconds(0.1f);
 
         if (agent != null && agent.isActiveAndEnabled)
         {
-            agent.isStopped = false; // Restart the NavMeshAgent
-            agent.velocity = Vector3.zero; // Ensure the agent's velocity is reset
+            agent.isStopped = false;
+            agent.velocity = Vector3.zero;
         }
-
-        
     }
+
     private void StopAnimations()
     {
         isWaiting = false;

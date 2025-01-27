@@ -6,6 +6,7 @@ public class BasicProjectile : MonoBehaviour
 {
     Rigidbody rb;
     private int attackDamage = 30;
+    public LayerMask groundLayer;
 
     void Start()
     {
@@ -24,6 +25,14 @@ public class BasicProjectile : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
+        if (((1 << other.gameObject.layer) & groundLayer) != 0)
+        {
+            //Debug.Log("hit the ground. destroying self.");
+            StopCoroutine("SelfDestruct");
+            Destroy(gameObject);
+            return;
+        }
+
         if (other.GetComponent<HealthScript>() != null && other.gameObject.tag == "Player")
         {
             //Debug.Log("Projectile has hit a collider of name: "+other.gameObject.name);

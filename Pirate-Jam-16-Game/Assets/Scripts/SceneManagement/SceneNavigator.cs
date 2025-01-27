@@ -8,7 +8,7 @@ public class SceneNavigator : MonoBehaviour
     public void PlayGame()
     {
         Debug.Log("Going to scene 1.");
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("Lvl_1");
     }
     public void OpenSettings()
     {

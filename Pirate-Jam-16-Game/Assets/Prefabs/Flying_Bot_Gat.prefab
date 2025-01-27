@@ -49,8 +49,8 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 64
-  sightRange: 80
-  attackRange: 50
+  sightRange: 30
+  attackRange: 15
   playerInSightRange: 0
   playerInAttackRange: 0
   playerInRangedAttackRange: 0
@@ -248,15 +248,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: ca5c72be6255d21489d0bb98eda26227, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.27193213
+      value: 1.7605803
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ca5c72be6255d21489d0bb98eda26227, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 16.22
+      value: 2.16
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ca5c72be6255d21489d0bb98eda26227, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8.159889
+      value: -24.38
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ca5c72be6255d21489d0bb98eda26227, type: 3}
       propertyPath: m_LocalRotation.w
@@ -310,6 +310,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ca5c72be6255d21489d0bb98eda26227, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4754017288700222504}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ca5c72be6255d21489d0bb98eda26227, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5830034284003078366}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ca5c72be6255d21489d0bb98eda26227, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6034373623329300982}
   m_SourcePrefab: {fileID: 100100000, guid: ca5c72be6255d21489d0bb98eda26227, type: 3}
 --- !u!1 &1297041440090335345 stripped
 GameObject:
@@ -359,6 +365,63 @@ NavMeshAgent:
   m_BaseOffset: 1.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &5830034284003078366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1297041440090335345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bba5fb71024046749af5e8b7a9b5caf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <invinsible>k__BackingField: 0
+  bonusHealth: {fileID: 0}
+  hitPoints: 100
+  <overhealExpand>k__BackingField: 0
+  <canRegen>k__BackingField: 0
+  regenPoints: 1
+  regenRate: 0.1
+  onReceivedDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  onHealed:
+    m_PersistentCalls:
+      m_Calls: []
+  onDead:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6034373623329300982}
+        m_TargetAssemblyTypeName: HealthScript, Assembly-CSharp
+        m_MethodName: Die
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6034373623329300982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1297041440090335345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8a4a7ae47823ff41b4b51d314ab49b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
+  isThisTargetAlive: 1
+  healthBar: {fileID: 0}
+  healthBarBg: {fileID: 0}
 --- !u!4 &1822784660736570059 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ca5c72be6255d21489d0bb98eda26227, type: 3}
