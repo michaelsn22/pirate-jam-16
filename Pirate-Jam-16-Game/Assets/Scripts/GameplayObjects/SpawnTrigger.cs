@@ -6,6 +6,7 @@ public class SpawnTrigger : MonoBehaviour
 {
     [SerializeField] private List<GameObject> entitiesToSpawn;
     [SerializeField] private int typeOfSpawner = 0;
+    [SerializeField] private DialogueHandler dialogueHandler;
     private bool doneSpawn = false;
 
     private void OnTriggerEnter(Collider other)
@@ -28,6 +29,7 @@ public class SpawnTrigger : MonoBehaviour
                 AudioManager.instance.StartBossFightMusic1();
                 break;
             case 1:
+                dialogueHandler.ReactToBossSpawning();
                 AudioManager.instance.StartBossFightMusic2();
                 break;
         }

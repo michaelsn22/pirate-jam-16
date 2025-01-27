@@ -104,6 +104,11 @@ public class DialogueHandler : MonoBehaviour
         }
     }
 
+    public void ReactToBossSpawning()
+    {
+        ShowDialogue(ourCharactersName, "Time to take that thing out of commission!");
+    }
+
     private void PlayHardCodedDialogue(string nameOfEntity)
     {
         ShowDialogue(nameOfEntity, "Idk put some hard coded value here if needed.");
