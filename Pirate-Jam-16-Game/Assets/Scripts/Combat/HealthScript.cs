@@ -13,6 +13,9 @@ public class HealthScript : MonoBehaviour
     public Image healthBar;
     public Image healthBarBg;
     private Transform objTransform;
+    public Image vignetteEffect;
+    private float lerpDuration = 0.25f;
+    private float maxAlpha = 48f / 255f; // 48 out of 255 in normalized form
     
     void Start()
     {
@@ -43,7 +46,12 @@ public class HealthScript : MonoBehaviour
 
 	public void TakeDamage(int damage)
     {
-        Debug.Log(this.name+" is taking damage!");
+        //Debug.Log(this.name+" is taking damage!");
+
+        if (this.CompareTag("Player"))
+        {
+            RecievingDamage();
+        }
 		currentHealth -= damage;
         //DamagePopup.Create(healthBar.transform.position, damage);
         //play a hurt animation
@@ -54,6 +62,48 @@ public class HealthScript : MonoBehaviour
         }
     }
 
+    public void RecievingDamage()
+    {
+        if (this.CompareTag("Player") && vignetteEffect != null)
+        {
+            //Debug.Log("playing vignette");
+            StartCoroutine(LerpAlpha());
+            return;
+        }
+
+        GlobalParticleSpawner.instance.PlayParticleAtLocation(objTransform, 2);
+    }
+
+    //vignette effect
+    private IEnumerator LerpAlpha()
+    {
+        // Lerp from 0 to maxAlpha
+        yield return StartCoroutine(LerpAlphaRoutine(0f, maxAlpha));
+
+        // Lerp from maxAlpha back to 0
+        yield return StartCoroutine(LerpAlphaRoutine(maxAlpha, 0f));
+    }
+
+    private IEnumerator LerpAlphaRoutine(float startAlpha, float endAlpha)
+    {
+        float elapsedTime = 0f;
+        Color currentColor = vignetteEffect.color;
+
+        while (elapsedTime < lerpDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / lerpDuration);
+            
+            currentColor.a = Mathf.Lerp(startAlpha, endAlpha, t);
+            vignetteEffect.color = currentColor;
+
+            yield return null;
+        }
+
+        // Ensure we end exactly at the target alpha
+        currentColor.a = endAlpha;
+        vignetteEffect.color = currentColor;
+    }
 
 	public void Die()
     {
@@ -61,6 +111,14 @@ public class HealthScript : MonoBehaviour
         //disable the enemy
         //Debug.Log(this.name+" died");
         isThisTargetAlive = false;
+        GlobalParticleSpawner.instance.PlayParticleAtLocation(objTransform, 1);
+
+        if (this.CompareTag("Boss"))
+        {
+            //show text that the player beat the game or something?
+            //maybe start a count down and exit to the menu too?
+            Debug.Log("Boss has been defeated!");
+        }
         Destroy(gameObject);
     }
 

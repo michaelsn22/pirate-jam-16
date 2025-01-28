@@ -29,7 +29,7 @@ public class SpawnTrigger : MonoBehaviour
                 AudioManager.instance.StartBossFightMusic1();
                 break;
             case 1:
-                dialogueHandler.ReactToBossSpawning();
+                //dialogueHandler.ReactToBossSpawning();
                 AudioManager.instance.StartBossFightMusic2();
                 break;
         }

@@ -15,10 +15,12 @@ public class AudioManager : MonoBehaviour
     public AudioClip BossFightMusicLoop;
     private float transitionDuration = 2.0f;
     [SerializeField] private AudioSource MoveableAudioSource;
+    private float currentTime = 0f;
+    private float timeSinceLastSound = 0f;
+    private float lastSoundInputTime = 0f;
 
     void Start()
     {
-
         if (instance == null)
         {
             instance = this;
@@ -43,11 +45,8 @@ public class AudioManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            Debug.Log("doing transition");
-            StartCoroutine(TransitionToSong(secondSong));
-        }
+        currentTime += Time.deltaTime;
+        timeSinceLastSound = currentTime - lastSoundInputTime;
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -130,7 +129,7 @@ public class AudioManager : MonoBehaviour
 
     public void StartBossFightMusic2()
     {
-         StartCoroutine(TransitionToSong(BossFightMusicLoop));
+        StartCoroutine(TransitionToSong(BossFightMusicLoop));
     }
 
     private IEnumerator TransitionToSong(AudioClip newSong)
@@ -166,6 +165,19 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySoundAtLocation(Transform location, AudioClip soundToPlay)
     {
+        /*
+        if (MoveableAudioSource.isPlaying)
+        {
+            return;
+        }
+        */
+
+        if (!(timeSinceLastSound >= 0.1f))
+        {
+            return;
+        }
+
+        lastSoundInputTime = currentTime;
         MoveableAudioSource.transform.position = location.position;
 
         MoveableAudioSource.PlayOneShot(soundToPlay); //need to use playoneshot to allow layering.

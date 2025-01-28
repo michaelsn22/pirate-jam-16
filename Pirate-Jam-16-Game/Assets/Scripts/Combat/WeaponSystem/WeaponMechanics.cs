@@ -146,8 +146,14 @@ public class WeaponMechanics : MonoBehaviour
                 if(hit.collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
                 {
                     hit.collider.gameObject?.GetComponent<Health>().ModifyHealth(HealthModifiers.damage, m_WeaponData.DamageAmount);
+                    //hit.collider.gameObject?.GetComponent<HealthScript>().ModifyHealth(HealthModifiers.damage, m_WeaponData.DamageAmount);
                 }
-                Debug.Log(hit.collider.gameObject.name);
+                else if(hit.collider.gameObject.layer == LayerMask.NameToLayer("EnemyProjectile"))
+                {
+                    Destroy(hit.collider.gameObject);
+                }
+
+                //Debug.Log(hit.collider.gameObject.name);
                 //GameObject impact =  ObjectPools.Instance.GetPooledObject("Stones hit");
                 //impact.transform.position = hit.point;
                 //StartCoroutine(StartFlash(impact));
