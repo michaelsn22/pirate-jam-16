@@ -96,9 +96,9 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 64
-  sightRange: 80
-  rangedAttackRange: 50
-  attackRange: 30
+  sightRange: 50
+  rangedAttackRange: 40
+  attackRange: 20
   playerInSightRange: 0
   playerInAttackRange: 0
   playerInRangedAttackRange: 0
@@ -118,6 +118,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   raycastDistance: 2
+  gatlingMuzzle1: {fileID: 0}
+  gatlingMuzzle2: {fileID: 0}
+  projectileMuzzle: {fileID: 0}
 --- !u!82 &5417908827809973656
 AudioSource:
   m_ObjectHideFlags: 0
@@ -344,6 +347,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9ece5d1ed83173d4eb14ffed0320edbb, type: 3}
+      propertyPath: m_TagString
+      value: Boss
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -360,6 +367,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9ece5d1ed83173d4eb14ffed0320edbb, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4866800841475232172}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9ece5d1ed83173d4eb14ffed0320edbb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 497022507596390609}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9ece5d1ed83173d4eb14ffed0320edbb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 613335920361534606}
   m_SourcePrefab: {fileID: 100100000, guid: 9ece5d1ed83173d4eb14ffed0320edbb, type: 3}
 --- !u!1 &2519756632718624233 stripped
 GameObject:
@@ -409,6 +422,76 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &497022507596390609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2519756632718624233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bba5fb71024046749af5e8b7a9b5caf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <invinsible>k__BackingField: 0
+  bonusHealth: {fileID: 0}
+  hitPoints: 4000
+  <overhealExpand>k__BackingField: 0
+  <canRegen>k__BackingField: 0
+  regenPoints: 1
+  regenRate: 0.1
+  onReceivedDamage:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 613335920361534606}
+        m_TargetAssemblyTypeName: HealthScript, Assembly-CSharp
+        m_MethodName: RecievingDamage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onHealed:
+    m_PersistentCalls:
+      m_Calls: []
+  onDead:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 613335920361534606}
+        m_TargetAssemblyTypeName: HealthScript, Assembly-CSharp
+        m_MethodName: Die
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &613335920361534606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2519756632718624233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8a4a7ae47823ff41b4b51d314ab49b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
+  isThisTargetAlive: 1
+  healthBar: {fileID: 0}
+  healthBarBg: {fileID: 0}
+  vignetteEffect: {fileID: 0}
 --- !u!4 &3007324702874050387 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9ece5d1ed83173d4eb14ffed0320edbb, type: 3}

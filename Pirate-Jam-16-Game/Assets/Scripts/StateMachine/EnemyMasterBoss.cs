@@ -48,6 +48,10 @@ public class EnemyMasterBoss : State
     private bool dashAttacking = false; //flag for checking if we are mid dash attack/melee run at the player. this is so we dont try to ranged attack while dashing...
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float raycastDistance = 10f; //checking for collision with map elements so that we can return early.
+    [SerializeField] private Transform gatlingMuzzle1;
+    [SerializeField] private Transform gatlingMuzzle2;
+    [SerializeField] private Transform projectileMuzzle;
+
     public override void Enter()
     {
         base.Enter();
@@ -285,22 +289,39 @@ public class EnemyMasterBoss : State
         switch(bulletType)
         {
             case 0:
-                GameObject tempProjectileGameObject = Instantiate(projectilePrefab1, transform.position + transform.forward * 1f + Vector3.up * 0.5f, Quaternion.identity);
-                tempProjectileGameObject.transform.position += new Vector3(0,0.5f,0);
+                //GameObject tempProjectileGameObject = Instantiate(projectilePrefab1, transform.position + transform.forward * 1f + Vector3.up * 0.5f, Quaternion.identity);
+                GameObject tempProjectileGameObject = Instantiate(projectilePrefab1, projectileMuzzle.position, Quaternion.identity);
+                //tempProjectileGameObject.transform.position += new Vector3(0,0.5f,0);
                 tempProjectileGameObject.transform.LookAt(ourTrans);
 
                 //play a particle
+                gunfireParticle.transform.position = projectileMuzzle.position;
                 gunfireParticle.Play();
 
                 ourAudioSource.clip = gunfireNoise;
                 ourAudioSource.Play();
                 break;
-            case 1:
-                GameObject tempProjectileGameObject2 = Instantiate(projectilePrefab2, transform.position + transform.forward * 0.2f + Vector3.up * 0.5f, Quaternion.identity);
-                tempProjectileGameObject2.transform.position += new Vector3(0,0.5f,0);
+            case 1: //gatling muzzle 1
+                //GameObject tempProjectileGameObject2 = Instantiate(projectilePrefab2, transform.position + transform.forward * 0.2f + Vector3.up * 0.5f, Quaternion.identity);\
+                GameObject tempProjectileGameObject2 = Instantiate(projectilePrefab2, gatlingMuzzle1.position, Quaternion.identity);
+                //tempProjectileGameObject2.transform.position += new Vector3(0,0.5f,0);
                 tempProjectileGameObject2.transform.LookAt(ourTrans);
 
                 //play a particle
+                gunfireParticle.transform.position = gatlingMuzzle1.position;
+                gunfireParticle.Play();
+
+                ourAudioSource.clip = gunfireNoise;
+                ourAudioSource.Play();
+                break;
+            case 2: //gatling muzzle 2
+                //GameObject tempProjectileGameObject3 = Instantiate(projectilePrefab2, transform.position + transform.forward * 0.2f + Vector3.up * 0.5f, Quaternion.identity);
+                GameObject tempProjectileGameObject3 = Instantiate(projectilePrefab2, gatlingMuzzle2.position, Quaternion.identity);
+                //tempProjectileGameObject3.transform.position += new Vector3(0,0.5f,0);
+                tempProjectileGameObject3.transform.LookAt(ourTrans);
+
+                //play a particle
+                gunfireParticle.transform.position = gatlingMuzzle2.position;
                 gunfireParticle.Play();
 
                 ourAudioSource.clip = gunfireNoise;
@@ -323,15 +344,15 @@ public class EnemyMasterBoss : State
         yield return new WaitForSeconds(0.1f);
         FireBullet(1);
         yield return new WaitForSeconds(0.1f);
-        FireBullet(1);
+        FireBullet(2);
         yield return new WaitForSeconds(0.1f);
-        FireBullet(1);
+        FireBullet(2);
         yield return new WaitForSeconds(0.1f);
-        FireBullet(1);
+        FireBullet(2);
         yield return new WaitForSeconds(0.1f);
-        FireBullet(1);
+        FireBullet(2);
         yield return new WaitForSeconds(0.1f);
-        FireBullet(1);
+        FireBullet(2);
         yield return new WaitForSeconds(0.1f);
         Invoke(nameof(ResetAttack), timeBetweenAttacks);
     }
