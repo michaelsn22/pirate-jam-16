@@ -7,16 +7,16 @@
       "RelativeMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\combat\\weaponsystem\\weaponmechanics.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\assets\\scripts\\combat\\weaponsystem\\weaponmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\combat\\weaponsystem\\weaponmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\assets\\scripts\\combat\\weaponsystem\\bulletmechanics.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\combat\\weaponsystem\\bulletmechanics.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\assets\\scripts\\combat\\weaponsystem\\weaponcontrols.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\combat\\weaponsystem\\weaponcontrols.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\assets\\scripts\\combat\\weaponsystem\\weaponmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\combat\\weaponsystem\\weaponmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{20BE4788-058A-7F39-D036-924C05C04244}|Assembly-CSharp.csproj|F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\assets\\scripts\\scriptable object scripts\\playersettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -50,7 +50,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "BulletMechanics.cs",
               "DocumentMoniker": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\Combat\\WeaponSystem\\BulletMechanics.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Combat\\WeaponSystem\\BulletMechanics.cs",
@@ -98,7 +98,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "WeaponControls.cs",
               "DocumentMoniker": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\Combat\\WeaponSystem\\WeaponControls.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Combat\\WeaponSystem\\WeaponControls.cs",
@@ -110,15 +110,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "WeaponManager.cs",
               "DocumentMoniker": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\Combat\\WeaponSystem\\WeaponManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Combat\\WeaponSystem\\WeaponManager.cs",
               "ToolTip": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\Combat\\WeaponSystem\\WeaponManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\Combat\\WeaponSystem\\WeaponManager.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAFEAAAAAAAAA",
+              "ViewState": "AQIAADIAAAAAAAAAAAAwwFEAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-23T20:09:41.027Z"
+              "WhenOpened": "2025-01-23T20:09:41.027Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -140,7 +141,7 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\Combat\\WeaponSystem\\WeaponMechanics.cs",
               "ToolTip": "F:\\UnityProjects\\pirate-jam-16\\Pirate-Jam-16-Game\\Assets\\Scripts\\Combat\\WeaponSystem\\WeaponMechanics.cs",
               "RelativeToolTip": "Assets\\Scripts\\Combat\\WeaponSystem\\WeaponMechanics.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABsAAAAZAAAA",
+              "ViewState": "AQIAAHkAAAAAAAAAAAAgwJUAAAA4AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-23T20:11:19.605Z",
               "EditorCaption": ""
