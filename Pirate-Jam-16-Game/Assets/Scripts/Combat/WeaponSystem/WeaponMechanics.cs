@@ -12,6 +12,7 @@ public class WeaponMechanics : MonoBehaviour
     [SerializeField] private ScriptableStringEvent onAmmoChanged;
     [SerializeField] private ScriptableIntEvent onAmmoGrabbed;
     [SerializeField] private Camera m_PlayerCam;
+    [SerializeField] private Animator m_gunAnimator;
 
     private float timeBetweenShots;
     private Quaternion initialRotation;
@@ -81,6 +82,10 @@ public class WeaponMechanics : MonoBehaviour
                 if (shotsRemainingInBurst == 0)
                 {
                     internalCooldown();
+                    if (m_gunAnimator != null)
+                    {
+                        m_gunAnimator.SetBool("fire", false);
+                    }
                     return;
                 }
                 shotsRemainingInBurst--;
@@ -90,8 +95,18 @@ public class WeaponMechanics : MonoBehaviour
                 if (!triggerReleasedSinceLastShot)
                 {
                     internalCooldown();
+                    if (m_gunAnimator != null)
+                    {
+                        m_gunAnimator.SetBool("fire", false);
+                    }
                     return;
                 }
+            }
+
+            //handle anim?
+            if (m_gunAnimator != null)
+            {
+                m_gunAnimator.SetBool("fire", true);
             }
 
 
@@ -107,6 +122,13 @@ public class WeaponMechanics : MonoBehaviour
             projectilesRemainingInMag--;
 
             onAmmoChanged.Invoke(this, $"{projectilesRemainingInMag} | {currentAmmoTotal}");
+        }
+        else
+        {
+            if (m_gunAnimator != null)
+            {
+                m_gunAnimator.SetBool("fire", false);
+            }
         }
 
     }
@@ -208,6 +230,10 @@ public class WeaponMechanics : MonoBehaviour
     IEnumerator AnimateReload()
     {
         isReloading = true;
+        if (m_gunAnimator != null)
+        {
+            m_gunAnimator.SetBool("reload", true);
+        }
         yield return new WaitForSeconds(.2f);
 
         //source.PlayOneShot(m_WeaponData.ReloadAudio, 1);
@@ -216,7 +242,7 @@ public class WeaponMechanics : MonoBehaviour
         float percent = 0;
 
         //// Store the initial rotation of the weapon
-        //initialRotation = transform.rotation;
+        initialRotation = transform.rotation;
 
         //while (percent < 1)
         //{
@@ -228,6 +254,11 @@ public class WeaponMechanics : MonoBehaviour
 
         //    yield return null;
         //}
+
+        if (m_gunAnimator != null)
+        {
+            m_gunAnimator.SetBool("reload", false);
+        }
 
         isReloading = false;
 
@@ -274,6 +305,10 @@ public class WeaponMechanics : MonoBehaviour
         triggerReleasedSinceLastShot = true;
         shotsRemainingInBurst = m_WeaponData.burstCount;
         
+        if (m_gunAnimator != null)
+        {
+            m_gunAnimator.SetBool("fire", false);
+        }
     }
 }
 
