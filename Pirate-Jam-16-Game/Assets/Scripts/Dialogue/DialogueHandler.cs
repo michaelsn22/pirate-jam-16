@@ -7,17 +7,19 @@ using DG.Tweening;
 public class DialogueHandler : MonoBehaviour
 {
     //serializable objs for dialogue canvas.
-    [SerializeField] private GameObject dialogueCanvas;
-    [SerializeField] private TextMeshProUGUI SpeakerText;
-    [SerializeField] private TextMeshProUGUI ActualText;
+    [SerializeField] private GameObject AngelImage;
+    [SerializeField] private GameObject dialogueTextObject;
+    [SerializeField] private TextMeshProUGUI dialogueText;
     private float timeToLive = 6f;
     private float typingSpeed = 0.015f; // Time between each character changed from 0.01f on 9/26 to 0.015f
     private bool showingDialogue = false;
     private Coroutine typingCoroutine;
     [SerializeField] private string ourCharactersName;
+
     void Start()
     {
-        dialogueCanvas.SetActive(false);
+        AngelImage.SetActive(false);
+        dialogueTextObject.SetActive(false);
         Invoke(nameof(DelayedStartDialogue), 2f);
     }
 
@@ -28,30 +30,29 @@ public class DialogueHandler : MonoBehaviour
         float randomDecider = Random.value;
         if (randomDecider <= 0.25f)
         {
-            ShowDialogue(ourCharactersName, "Time to make this look easy!");
+            ShowDialogue("Time to make this look easy!");
         }
         else if(randomDecider <= 0.5f)
         {
-            ShowDialogue(ourCharactersName, "This should be fun!");
+            ShowDialogue("I'll make them pay for what they did.");
         }
         else if(randomDecider <= 0.75f)
         {
-            ShowDialogue(ourCharactersName, "They don't stand a chance against me.");
+            ShowDialogue("They don't stand a chance against me.");
         }
         else
         {
-            ShowDialogue(ourCharactersName, "Don't get in my way, I'll handle this.");
+            ShowDialogue("I'm going to make them pay.");
         }
         //ShowDialogue(memberName, "Alright, let's do this!");
     }
 
-    private void ShowDialogue(string Speaker, string actualText)
+    private void ShowDialogue(string dialogueText)
     {
         CancelInvoke("HideDialogue");
         showingDialogue = true;
-        dialogueCanvas.SetActive(true);
-
-        SpeakerText.text = Speaker;
+        AngelImage.SetActive(true);
+        dialogueTextObject.SetActive(true);
 
         // Stop any ongoing typing animation
         if (typingCoroutine != null)
@@ -60,17 +61,17 @@ public class DialogueHandler : MonoBehaviour
         }
 
         // Start the new typing animation
-        typingCoroutine = StartCoroutine(AnimateText(actualText));
+        typingCoroutine = StartCoroutine(AnimateText(dialogueText));
 
         Invoke(nameof(HideDialogue), timeToLive);
     }
 
     private IEnumerator AnimateText(string text)
     {
-        ActualText.text = "";
+        dialogueText.text = "";
         foreach (char c in text)
         {
-            ActualText.text += c;
+            dialogueText.text += c;
             yield return new WaitForSeconds(typingSpeed);
         }
     }
@@ -78,45 +79,50 @@ public class DialogueHandler : MonoBehaviour
     private void HideDialogue()
     {
         showingDialogue = false;
-        dialogueCanvas.SetActive(false);
-        SpeakerText.text = "";
-        ActualText.text = "";
+        AngelImage.SetActive(false);
+        dialogueTextObject.SetActive(false);
+        dialogueText.text = "";
     }
 
-    private void CelebrateEnemyKill(string memberName, GameObject deadObjReference)
+    private void CelebrateEnemyKill(GameObject deadObjReference)
     {
         float randomDecider = Random.value;
         if (randomDecider <= 0.25f)
         {
-            ShowDialogue(ourCharactersName, "Another one down!");
+            ShowDialogue("Another one down!");
         }
         else if(randomDecider <= 0.5f)
         {
-            ShowDialogue(ourCharactersName, "I've got them!");
+            ShowDialogue("I've got them!");
         }
         else if(randomDecider <= 0.75f)
         {
-            ShowDialogue(ourCharactersName, "They didn't stand a chance against me.");
+            ShowDialogue("They didn't stand a chance against me.");
         }
         else
         {
-            ShowDialogue(ourCharactersName, "Wooo hooo! Got one!");
+            ShowDialogue("Wooo hooo! Got one!");
         }
     }
 
     public void ReactToBossSpawning()
     {
-        ShowDialogue(ourCharactersName, "Time to take that thing out of commission!");
+        ShowDialogue("Time to take that thing out of commission!");
     }
 
-    private void PlayHardCodedDialogue(string nameOfEntity)
+    public void StartPlayerDefeatedDialogue()
     {
-        ShowDialogue(nameOfEntity, "Idk put some hard coded value here if needed.");
+        ShowDialogue("Noooo!");
     }
 
-    public void PlayHardCodedDialogueExternally(string nameOfSpeaker, string textToDisplay)
+    public void StartBossDefeatedDialogue()
     {
-        ShowDialogue(nameOfSpeaker, textToDisplay);
+        ShowDialogue("That'll show em!");
+    }
+
+    public void PlayHardCodedDialogueExternally(string textToDisplay)
+    {
+        ShowDialogue(textToDisplay);
     }
 
     private void DelayedStartDialogue()
@@ -129,7 +135,7 @@ public class DialogueHandler : MonoBehaviour
         if (typingCoroutine != null)
         {
             StopCoroutine(typingCoroutine);
-            ActualText.text = ActualText.text; //Set the full text immediately
+            dialogueText.text = dialogueText.text; //Set the full text immediately
         }
     }
 }

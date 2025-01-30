@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class HealthScript : MonoBehaviour
 {
@@ -11,36 +12,39 @@ public class HealthScript : MonoBehaviour
     public bool isThisTargetAlive = true;
 
     public Image healthBar;
-    public Image healthBarBg;
     private Transform objTransform;
     public Image vignetteEffect;
     private float lerpDuration = 0.25f;
     private float maxAlpha = 48f / 255f; // 48 out of 255 in normalized form
-    
+    public GameObject healthTextGameObject;
+    public TextMeshProUGUI healthText;
+    private float currentTime;
+    [SerializeField] private List<GameObject> playerUIObjectsList;
+    [SerializeField] private List<GameObject> allEnemyObjectsList;
+    public GameObject endConditionTextObject;
+    public TextMeshProUGUI endConditionText;
+    [SerializeField] private SceneNavigator sceneNavigator;
+    [SerializeField] private DialogueHandler dialogueHandler;
     void Start()
     {
         // Get the object's transform component
         objTransform = GetComponent<Transform>();
-        if (this.GetComponent<Animator>() != null)
-        {
-            animator = this.GetComponent<Animator>();
-        }
         currentHealth = maxHealth;
     }
 
     private void Update()
     {
-        if (healthBar != null)
+        currentTime += Time.deltaTime;
+
+        if (currentTime >= 5f && !(currentHealth + 5f > maxHealth) && gameObject.CompareTag("Player"))
         {
-            healthBar.fillAmount = currentHealth/maxHealth;
+            //Debug.Log("adding health");
+            currentTime = 0f;
+            currentHealth += 15f;
         }
-        if (currentHealth <= 0)
+        if (healthTextGameObject != null)
         {
-            if (healthBar != null)
-            {
-                healthBarBg.enabled = false;
-                healthBar.fillAmount = 0;
-            }
+            healthText.text = "health: " + currentHealth + " | " +maxHealth;
         }
     }
 
@@ -53,8 +57,7 @@ public class HealthScript : MonoBehaviour
             RecievingDamage();
         }
 		currentHealth -= damage;
-        //DamagePopup.Create(healthBar.transform.position, damage);
-        //play a hurt animation
+
         //do the check
 	    if (currentHealth  <= 0)
         {
@@ -107,7 +110,6 @@ public class HealthScript : MonoBehaviour
 
 	public void Die()
     {
-        //animation
         //disable the enemy
         //Debug.Log(this.name+" died");
         isThisTargetAlive = false;
@@ -118,6 +120,36 @@ public class HealthScript : MonoBehaviour
             //show text that the player beat the game or something?
             //maybe start a count down and exit to the menu too?
             Debug.Log("Boss has been defeated!");
+
+            //set condition to active
+            endConditionTextObject.SetActive(true);
+            endConditionText.text = "Enemy boss defeated! \n \n Mission Success!";
+
+            foreach (GameObject enemyObj in allEnemyObjectsList)
+            {
+                if (enemyObj != null)
+                {
+                    enemyObj.SetActive(false);
+                }
+            }
+
+            sceneNavigator.StartExitRoutine();
+            dialogueHandler.StartBossDefeatedDialogue();
+        }
+        
+        if (gameObject.CompareTag("Player"))
+        {
+            Debug.Log("player has died");
+            foreach (GameObject playerUIObj in playerUIObjectsList)
+            {
+                playerUIObj.SetActive(false);
+            }
+            //set condition to active
+            endConditionTextObject.SetActive(true);
+            endConditionText.text = "Mission Failed. \n \n Exiting Encounter.";
+            sceneNavigator.StartExitRoutine();
+            dialogueHandler.StartPlayerDefeatedDialogue();
+            return;
         }
         Destroy(gameObject);
     }
@@ -129,21 +161,7 @@ public class HealthScript : MonoBehaviour
 
     public void HealSelf(int valueToHeal)
     {
-        if (healthBar != null)
-        {
-            currentHealth += valueToHeal;
-            //DamagePopup.CreateHeal(healthBar.transform.position, valueToHeal);
-        }
-        /*
-        else{
-            if (currentHealth > 0)
-            {
-                currentHealth = 0;
-                healthBar.fillAmount = 0;
-            }
-            
-        }
-        */
+        currentHealth += valueToHeal;
         //Debug.Log("we healed for "+valueToHeal);
     }
 
