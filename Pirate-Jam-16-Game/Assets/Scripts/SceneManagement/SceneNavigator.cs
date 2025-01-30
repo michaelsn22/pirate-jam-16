@@ -38,11 +38,19 @@ public class SceneNavigator : MonoBehaviour
     {
         yield return new WaitForSeconds(7f);
 
-        SceneManager.LoadScene("MainMenu");
+        if (AudioManager.instance.CheckIfPlayerPassedTutorial())
+        {
+            SceneManager.LoadScene("Lvl_1");
+        }
+        else
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
     }
 
     public void StartExitRoutineTutorial()
     {
+        AudioManager.instance.SetPlayerPassedTutorial();
         StartCoroutine(EnterMission1());
     }
 

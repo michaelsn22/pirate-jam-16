@@ -18,6 +18,7 @@ public class AudioManager : MonoBehaviour
     private float currentTime = 0f;
     private float timeSinceLastSound = 0f;
     private float lastSoundInputTime = 0f;
+    public static bool playerPassedTutorial = false;
 
     void Start()
     {
@@ -186,5 +187,15 @@ public class AudioManager : MonoBehaviour
     public void PlayAnySound(AudioClip soundToPlay)
     {
         sfxSource.PlayOneShot(soundToPlay);
+    }
+
+    public void SetPlayerPassedTutorial()
+    {
+        playerPassedTutorial = true;
+    }
+
+    public bool CheckIfPlayerPassedTutorial()
+    {
+        return playerPassedTutorial;
     }
 }
