@@ -31,10 +31,15 @@ public class SceneNavigator : MonoBehaviour
 
     public void StartExitRoutine()
     {
-        StartCoroutine(ExitMission());
+        StartCoroutine(ExitMissionFailure());
     }
 
-    private IEnumerator ExitMission()
+    public void StartVictoryExitRoutine()
+    {
+        StartCoroutine(ExitMissionSuccess());
+    }
+
+    private IEnumerator ExitMissionFailure()
     {
         yield return new WaitForSeconds(7f);
 
@@ -46,6 +51,13 @@ public class SceneNavigator : MonoBehaviour
         {
             SceneManager.LoadScene("MainMenu");
         }
+    }
+
+    private IEnumerator ExitMissionSuccess()
+    {
+        yield return new WaitForSeconds(7f);
+
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void StartExitRoutineTutorial()

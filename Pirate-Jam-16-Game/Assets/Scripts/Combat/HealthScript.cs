@@ -133,7 +133,7 @@ public class HealthScript : MonoBehaviour
                 }
             }
 
-            sceneNavigator.StartExitRoutine();
+            sceneNavigator.StartVictoryExitRoutine();
             dialogueHandler.StartBossDefeatedDialogue();
         }
         

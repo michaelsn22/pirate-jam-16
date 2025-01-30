@@ -13,6 +13,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip secondSong;
     public AudioClip BossFightMusicIntro;
     public AudioClip BossFightMusicLoop;
+    public AudioClip TutorialMusic;
     private float transitionDuration = 2.0f;
     [SerializeField] private AudioSource MoveableAudioSource;
     private float currentTime = 0f;
@@ -64,6 +65,18 @@ public class AudioManager : MonoBehaviour
             else if (!musicSource.isPlaying)
             {
                 musicSource.clip = regularSong;
+                musicSource.Play();
+            }
+        }
+        else if(sceneName == "Lvl_Tutorial")
+        {
+            if (musicSource.clip != TutorialMusic)
+            {
+                PlayMusic(TutorialMusic);
+            }
+            else if (!musicSource.isPlaying)
+            {
+                musicSource.clip = TutorialMusic;
                 musicSource.Play();
             }
         }
