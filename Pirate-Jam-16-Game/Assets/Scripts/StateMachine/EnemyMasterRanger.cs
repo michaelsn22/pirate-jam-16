@@ -325,7 +325,8 @@ public class EnemyMasterRanger : State
     private void FireBullet()
     {
         //spawn prefab aimed at player.
-        GameObject tempArrowGameObject = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
+        //GameObject tempArrowGameObject = Instantiate(arrowPrefab, masterGameObject.transform.position, Quaternion.identity);
+        GameObject tempArrowGameObject = Instantiate(arrowPrefab, masterGameObject.transform.position + masterGameObject.transform.forward * 0.5f, Quaternion.identity);
         tempArrowGameObject.transform.position += new Vector3(0,0.5f,0);
         tempArrowGameObject.transform.LookAt(ourTrans);
 

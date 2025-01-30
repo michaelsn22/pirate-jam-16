@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class DialogueHandler : MonoBehaviour
 {
@@ -25,6 +26,11 @@ public class DialogueHandler : MonoBehaviour
 
     private void DecideOnStringForIntroDialogue()
     {
+        if (SceneManager.GetActiveScene().name == "Lvl_Tutorial")
+        {
+            ShowDialogue("Im going to have to familiarize myself with the controls of this mech again. Running through the test facility wouldn't hurt.");
+            return;
+        }
         //Debug.Log($"Selected party member: {memberName}");
 
         float randomDecider = Random.value;
@@ -45,6 +51,28 @@ public class DialogueHandler : MonoBehaviour
             ShowDialogue("I'm going to make them pay.");
         }
         //ShowDialogue(memberName, "Alright, let's do this!");
+    }
+
+    public void IntroTutorial1()
+    {
+        ShowDialogue("I can keep my momentum going by pressing space to jump, and then the W key along with either A or D together to combine their movement forces.");
+    }
+    public void IntroTutorial2()
+    {
+        ShowDialogue("If I remember correctly, those blue pads boost me up into the air...");
+    }
+    public void IntroTutorial3()
+    {
+        ShowDialogue("I know I can swap weapons with my mouse wheel... Left click to fire, R to reload.. its coming back to me.");
+    }
+    public void IntroTutorial4()
+    {
+        ShowDialogue("Time to practice on some of the older generations of bots. Do they even still use those things?");
+    }
+
+    public void ExitTutorialMessage()
+    {
+        ShowDialogue("Alright. I think I'm ready to take on the miltary.");
     }
 
     private void ShowDialogue(string dialogueText)

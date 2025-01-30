@@ -2944,7 +2944,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5830034284003078366, guid: 4d460e8f4009e794e88fd25e5a25ccc7, type: 3}
       propertyPath: hitPoints
-      value: 500
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 5830034284003078366, guid: 4d460e8f4009e794e88fd25e5a25ccc7, type: 3}
       propertyPath: onReceivedDamage.m_PersistentCalls.m_Calls.Array.size
@@ -15399,6 +15399,7 @@ MonoBehaviour:
   - {fileID: 1794980174}
   typeOfSpawner: 0
   dialogueHandler: {fileID: 0}
+  sceneNavigator: {fileID: 0}
 --- !u!4 &1237320049 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 16c7b2398c46f7c4487796a49521b504, type: 3}
@@ -24111,7 +24112,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5830034284003078366, guid: 4d460e8f4009e794e88fd25e5a25ccc7, type: 3}
       propertyPath: hitPoints
-      value: 500
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 5830034284003078366, guid: 4d460e8f4009e794e88fd25e5a25ccc7, type: 3}
       propertyPath: onReceivedDamage.m_PersistentCalls.m_Calls.Array.size
@@ -27336,6 +27337,7 @@ MonoBehaviour:
   - {fileID: 473438714}
   typeOfSpawner: 1
   dialogueHandler: {fileID: 2047598400}
+  sceneNavigator: {fileID: 0}
 --- !u!65 &2018812217
 BoxCollider:
   m_ObjectHideFlags: 0

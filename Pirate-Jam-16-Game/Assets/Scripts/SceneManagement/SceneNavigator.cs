@@ -17,7 +17,7 @@ public class SceneNavigator : MonoBehaviour
     public void PlayGame()
     {
         Debug.Log("Going to scene 1.");
-        SceneManager.LoadScene("Lvl_1");
+        SceneManager.LoadScene("Lvl_Tutorial");
     }
     public void OpenSettings()
     {
@@ -39,5 +39,17 @@ public class SceneNavigator : MonoBehaviour
         yield return new WaitForSeconds(7f);
 
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void StartExitRoutineTutorial()
+    {
+        StartCoroutine(EnterMission1());
+    }
+
+    private IEnumerator EnterMission1()
+    {
+        yield return new WaitForSeconds(7f);
+
+        SceneManager.LoadScene("Lvl_1");
     }
 }

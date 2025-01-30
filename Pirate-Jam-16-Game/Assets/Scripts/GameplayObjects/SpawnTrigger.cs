@@ -8,6 +8,7 @@ public class SpawnTrigger : MonoBehaviour
     [SerializeField] private int typeOfSpawner = 0;
     [SerializeField] private DialogueHandler dialogueHandler;
     private bool doneSpawn = false;
+    [SerializeField] private SceneNavigator sceneNavigator;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -31,6 +32,22 @@ public class SpawnTrigger : MonoBehaviour
             case 1:
                 dialogueHandler.ReactToBossSpawning();
                 AudioManager.instance.StartBossFightMusic2();
+                break;
+            case 2:
+                dialogueHandler.IntroTutorial1();
+                break;
+            case 3:
+                dialogueHandler.IntroTutorial2();
+                break;
+            case 4:
+                dialogueHandler.IntroTutorial3();
+                break;
+            case 5:
+                dialogueHandler.IntroTutorial4();
+                break;
+            case 6:
+                dialogueHandler.ExitTutorialMessage();
+                sceneNavigator.StartExitRoutineTutorial();
                 break;
         }
 
