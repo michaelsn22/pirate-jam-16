@@ -116,8 +116,7 @@ public class WeaponMechanics : MonoBehaviour
 
 
 
-            int j = Random.Range(0, m_WeaponData.ShootAudio.Length);
-            //source.PlayOneShot(m_WeaponData.ShootAudio?[j]);
+            source.PlayOneShot(m_WeaponData.ShootAudio?[0]);
 
             projectilesRemainingInMag--;
 
@@ -236,7 +235,7 @@ public class WeaponMechanics : MonoBehaviour
         }
         yield return new WaitForSeconds(.2f);
 
-        //source.PlayOneShot(m_WeaponData.ReloadAudio, 1);
+        source.PlayOneShot(m_WeaponData.ReloadAudio, 1);
 
         float reloadSpeed = 1 / m_WeaponData.reloadTime;
         float percent = 0;

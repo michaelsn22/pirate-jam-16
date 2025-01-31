@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e574cd71208cd934ba88cd1f31dd2bb1, type: 3}
   m_Name: 909 Magnum
   m_EditorClassIdentifier: 
-  WeaponName: Magnum
   DamageAmount: 20
   fireMode: 0
   bulletType: 0
@@ -22,10 +21,12 @@ MonoBehaviour:
   AmmoCapacity: 120
   reloadTime: 0.3
   WeaponRange: 100
+  ammoType: 0
   BulletPrefab: {fileID: 0}
   FlashPrefab: {fileID: 3633805218655292085, guid: 2211ec32e930410458e8dc89124d2a67, type: 3}
-  ShootAudio: []
-  EmptyMagAudio: {fileID: 0}
+  ShootAudio:
+  - {fileID: 8300000, guid: 03a9923b1e850b846a6de525bd220473, type: 3}
+  EmptyMagAudio: {fileID: 8300000, guid: 481e2c3eada45064cb9db3f3f8da2a57, type: 3}
   ReloadAudio: {fileID: 0}
   kickMinMax: {x: 0.05, y: 0.2}
   recoilAngleMinMax: {x: 3, y: 5}

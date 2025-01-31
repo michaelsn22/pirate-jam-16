@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e574cd71208cd934ba88cd1f31dd2bb1, type: 3}
   m_Name: NRG-Carbine
   m_EditorClassIdentifier: 
-  WeaponName: Carbine
   DamageAmount: 20
   fireMode: 2
   bulletType: 1
@@ -22,11 +21,13 @@ MonoBehaviour:
   AmmoCapacity: 600
   reloadTime: 0.3
   WeaponRange: 100
+  ammoType: 0
   BulletPrefab: {fileID: 1925846735241723392, guid: 2b8eae542bfad4445b9dd607c8cbc007, type: 3}
   FlashPrefab: {fileID: 3633805218655292085, guid: 2211ec32e930410458e8dc89124d2a67, type: 3}
-  ShootAudio: []
+  ShootAudio:
+  - {fileID: 8300000, guid: 2a8488e2ee331bd469664db361b583fd, type: 3}
   EmptyMagAudio: {fileID: 0}
-  ReloadAudio: {fileID: 0}
+  ReloadAudio: {fileID: 8300000, guid: d2eaf865672f3794cbc5a74eebfd1e05, type: 3}
   kickMinMax: {x: 0.05, y: 0.2}
   recoilAngleMinMax: {x: 3, y: 5}
   recoilMoveSettleTime: 0.1

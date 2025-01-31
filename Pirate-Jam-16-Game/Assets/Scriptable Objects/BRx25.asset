@@ -12,21 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e574cd71208cd934ba88cd1f31dd2bb1, type: 3}
   m_Name: BRx25
   m_EditorClassIdentifier: 
-  WeaponName: BRx25
   DamageAmount: 20
   fireMode: 1
   bulletType: 0
   burstCount: 3
-  RateOfFire: 30
+  RateOfFire: 2
   ProjectilesPerMag: 30
   AmmoCapacity: 360
   reloadTime: 0.3
   WeaponRange: 100
+  ammoType: 0
   BulletPrefab: {fileID: 0}
   FlashPrefab: {fileID: 3633805218655292085, guid: 2211ec32e930410458e8dc89124d2a67, type: 3}
-  ShootAudio: []
+  ShootAudio:
+  - {fileID: 8300000, guid: 2ebd286cde2cc5c4eb5b748993eb8219, type: 3}
   EmptyMagAudio: {fileID: 0}
-  ReloadAudio: {fileID: 0}
+  ReloadAudio: {fileID: 8300000, guid: cb0ded5fbc46a4341941c1983f9d85a1, type: 3}
   kickMinMax: {x: 0.05, y: 0.2}
   recoilAngleMinMax: {x: 3, y: 5}
   recoilMoveSettleTime: 0.1
